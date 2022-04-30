@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="200.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" spacing="8.0">
+         <children>
+            <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="21.0" prefWidth="121.0" text="Username:" textAlignment="CENTER" />
+            <TextField fx:id="usernameFIeld" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="73.69091796875" />
+            <PasswordField fx:id="passwordFIeld" />
+         </children>
+      </VBox>
+      <Text layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="607.69091796875" />
+   </children>
+</Pane>
