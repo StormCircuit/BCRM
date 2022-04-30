@@ -11,9 +11,9 @@
       <VBox layoutX="200.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" spacing="8.0">
          <children>
             <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="21.0" prefWidth="121.0" text="Username:" textAlignment="CENTER" />
-            <TextField fx:id="usernameFIeld" />
+            <TextField fx:id="usernameField" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="73.69091796875" />
-            <PasswordField fx:id="passwordFIeld" />
+            <PasswordField fx:id="passwordField" />
          </children>
       </VBox>
       <Text layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="607.69091796875" />
