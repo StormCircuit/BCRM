@@ -15,15 +15,20 @@ import javafx.scene.control.TextField;
 import javafx.fxml.FXMLLoader;
 
 // testing!
-public class App extends Application {
+public class openingUI extends Application{
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         //FXMLLoader loader = new FXMLLoader();
         //loader.setLocation(location);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        //Parent page = (Parent)FXMLLoader.load( MainWindowController.class.getResource("main.fxml"));
+        Parent page = (Parent)FXMLLoader.load(getClass().getResource("login.fxml"));
+        Scene scene = new Scene(page);
+        primaryStage.setScene(scene);
+        //finalize/show
+        primaryStage.show();
     }
 }

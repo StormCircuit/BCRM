@@ -5,17 +5,19 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <VBox layoutX="200.0" layoutY="100.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" spacing="8.0">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Login" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
-            <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="21.0" prefWidth="121.0" text="Username:" textAlignment="CENTER" />
-            <TextField fx:id="usernameField" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" wrappingWidth="73.69091796875" />
-            <PasswordField fx:id="passwordField" />
-         </children>
-      </VBox>
-      <Text layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login" wrappingWidth="607.69091796875" />
-   </children>
-</Pane>
+            <VBox layoutX="181.0" layoutY="84.0" prefHeight="200.0" prefWidth="236.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
+                  <TextField fx:id="usernameField" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
+                  <TextField fx:id="passwordField" />
+                  <Button fx:id="loginFinalizeText" mnemonicParsing="false" onAction="#loginFinalizeAction" text="Login" />
+               </children>
+            </VBox>
+         </children></AnchorPane>
+  </content>
+</TitledPane>
