@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 public class uiLoginController {
-    private Stage loginStage;
 
     @FXML
     private PasswordField passwordFieldText;
@@ -42,7 +41,8 @@ public class uiLoginController {
         // do login verification/library object creation
     }
 
-    public void startLoginUI(Stage primaryStage) throws IOException {
+    public void startLoginUI() throws IOException {
+        Stage primaryStage = new Stage();
         // primaryStage is taken from application class, it is the first stage the
         // program will show.
         // recall that 'stages' are singular instances of windows

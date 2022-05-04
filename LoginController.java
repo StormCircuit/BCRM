@@ -10,6 +10,7 @@ public class LoginController {
 
     // singleton setup
     private static final LoginController LoginController = new LoginController();
+    private static final uiLoginController loinUI = new uiLoginController();
     private static String username;
     private static String password;
 
@@ -29,7 +30,7 @@ public class LoginController {
         password = passwordArg;
     }
 
-    public static void showUI() {
-        uiLoginController.startLoginUI();
+    public static void showUI() throws IOException {
+        loginUI.startLoginUI();
     }
 }
