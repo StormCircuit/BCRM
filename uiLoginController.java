@@ -3,8 +3,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
+import java.io.IOException;
+import javafx.scene.*;
+import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 
 public class uiLoginController {
+    private Stage loginStage;
 
     @FXML
     private PasswordField passwordFieldText;
@@ -24,12 +29,37 @@ public class uiLoginController {
         String userName = usernameFieldText.getText();
         String userPassword = passwordFieldText.getText();
 
-        System.out.println(userName);
-        System.out.println(userPassword);
+        // System.out.println(userName);
+        // System.out.println(userPassword);
+
+        LoginController.setUsername(userName);
+
+        LoginController.setPassword(userPassword);
 
         // we would create a new login handler object and send the data here
         // or whatever library we end up using and however they do it.
 
         // do login verification/library object creation
+    }
+
+    public void startLoginUI(Stage primaryStage) throws IOException {
+        // primaryStage is taken from application class, it is the first stage the
+        // program will show.
+        // recall that 'stages' are singular instances of windows
+
+        // this is the first UI the program will open.
+        // FXMLLoader takes our fxml file. We use getClass().getResource() to properly
+        // get the file. I am not sure why this is,
+        // just that the docs specify it this way
+        // Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
+
+        // setup scene, primaryStage is our first stage we open
+        Scene scene = new Scene(page);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("BCRM Login");
+
+        // finalize/show the window
+        primaryStage.show();
     }
 }

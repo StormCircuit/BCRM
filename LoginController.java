@@ -10,33 +10,26 @@ public class LoginController {
 
     // singleton setup
     private static final LoginController LoginController = new LoginController();
+    private static String username;
+    private static String password;
+
+    private static uiLoginController loginUI = new uiLoginController();
 
     public static LoginController getInstance() {
         return LoginController;
     }
 
     // getting and setting
-    public static String getUsername() {
-        // return the username
+    public static void setUsername(String usernameArg) {
+        // set the username
+        username = usernameArg;
     }
 
-    public void startLoginUI(Stage primaryStage) throws IOException {
-        // primaryStage is taken from application class, it is the first stage the
-        // program will show.
-        // recall that 'stages' are singular instances of windows
+    public static void setPassword(String passwordArg) {
+        password = passwordArg;
+    }
 
-        // this is the first UI the program will open.
-        // FXMLLoader takes our fxml file. We use getClass().getResource() to properly
-        // get the file. I am not sure why this is,
-        // just that the docs specify it this way
-        Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
-
-        // setup scene, primaryStage is our first stage we open
-        Scene scene = new Scene(page);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("BCRM Login");
-
-        // finalize/show the window
-        primaryStage.show();
+    public static void showUI() {
+        uiLoginController.startLoginUI();
     }
 }
