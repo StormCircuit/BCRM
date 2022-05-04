@@ -5,7 +5,7 @@ import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
 
 
-public class uiController {
+public class uiLoginController {
 
     @FXML
     private PasswordField passwordFieldText;
