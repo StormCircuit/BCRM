@@ -1,22 +1,26 @@
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 import javafx.event.ActionEvent;
+
 
 public class uiController {
 
     @FXML
-    private TextField usernameField;
+    private PasswordField passwordFieldText;
 
     @FXML
-    private Button loginFinalizeText;
+    private Button loginFinalizeButton;
 
     @FXML
-    private TextField passwordField;
+    private TextField usernameFieldText;
 
     @FXML
-    void loginFinalizeAction(ActionEvent event) {
-        //create a session here with login info. We should directly pass this information to a dedicated session handler.
+    void loginFinalizeButtonAction(ActionEvent clickEvent) {
+        //put the actual code to run here.
+        //It sounds like we're gonna be using a session factory of sorts so this probably will not be handled by the UI controller
+        System.out.println("Success!");
 
     }
 

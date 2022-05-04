@@ -28,6 +28,7 @@ public class openingUI extends Application{
         Parent page = (Parent)FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(page);
         primaryStage.setScene(scene);
+        primaryStage.setTitle("BCRM Login");
         //finalize/show
         primaryStage.show();
     }
