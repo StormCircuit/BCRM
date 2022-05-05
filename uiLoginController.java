@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 public class uiLoginController {
-
+    static Stage primaryStage;
     @FXML
     private PasswordField passwordFieldText;
 
@@ -36,6 +36,10 @@ public class uiLoginController {
 
         LoginController.setPassword(userPassword);
 
+
+        //close the stage once the buttons clicked. Should return to the 'showAndWait' caller
+        primaryStage.close();
+
         // we would create a new login handler object and send the data here
         // or whatever library we end up using and however they do it.
 
@@ -43,7 +47,10 @@ public class uiLoginController {
     }
 
     public void startLoginUI() throws IOException {
-        Stage primaryStage = new Stage();
+
+        //set this objects stage reference since this is where we come into the method.
+        primaryStage = new Stage();
+
         // primaryStage is taken from application class, it is the first stage the
         // program will show.
         // recall that 'stages' are singular instances of windows
@@ -61,6 +68,6 @@ public class uiLoginController {
         primaryStage.setTitle("BCRM Login");
 
         // finalize/show the window
-        primaryStage.show();
+        primaryStage.showAndWait();
     }
 }
