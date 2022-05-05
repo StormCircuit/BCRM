@@ -32,10 +32,10 @@ public class uiLoginController {
         // System.out.println(userName);
         // System.out.println(userPassword);
 
-        LoginController.setUsername(userName);
+        uiController.setUsername(userName);
         System.out.println("UI class says: " + userName);
 
-        LoginController.setPassword(userPassword);
+        uiController.setPassword(userPassword);
 
 
         //close the stage once the buttons clicked. Should return to the 'showAndWait' caller
