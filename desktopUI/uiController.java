@@ -41,4 +41,13 @@ public class uiController {
     public static void showWelcomeUI() throws IOException {
         welcomeUI.startWelcomeUI();
     }
+
+    public static void verifyLogIn(String username,String password) {
+        boolean access = DatabaseController.getInstance().verifyLogIn(username, password);
+        if(access == false) {
+            //reject
+        }else if(access = true) {
+            //log in
+        }
+    }
 }
