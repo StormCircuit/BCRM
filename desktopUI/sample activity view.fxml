@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tableActivities" layoutX="200.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+      <Text layoutX="251.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome user!" />
+      <Text layoutX="269.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Activities:" />
+      <Button fx:id="buttonLogout" layoutX="200.0" layoutY="322.0" mnemonicParsing="false" text="Logout" />
+      <Button fx:id="buttonRegisterActivity" layoutX="273.0" layoutY="322.0" mnemonicParsing="false" text="Register Activity" />
+   </children>
+</Pane>
