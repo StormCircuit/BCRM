@@ -23,6 +23,14 @@ public class LoginController {
         password = passwordArg;
     }
 
+    public static String getUsername() {
+        return username;
+    }
+
+    public static String getPassword() {
+        return password;
+    }
+
     public static void showUI() throws IOException {
         loginUI.startLoginUI();
         System.out.println("Controller class sees: " + username);
