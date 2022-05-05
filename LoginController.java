@@ -1,20 +1,13 @@
 import java.io.IOException;
 
-import javafx.scene.*;
-import javafx.stage.Stage;
-
-import javafx.fxml.FXMLLoader;
-
 // testing!
 public class LoginController {
 
     // singleton setup
     private static final LoginController LoginController = new LoginController();
-    private static final uiLoginController loinUI = new uiLoginController();
+    private static final uiLoginController loginUI = new uiLoginController();
     private static String username;
     private static String password;
-
-    private static uiLoginController loginUI = new uiLoginController();
 
     public static LoginController getInstance() {
         return LoginController;
