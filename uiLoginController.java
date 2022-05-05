@@ -32,6 +32,7 @@ public class uiLoginController {
         // System.out.println(userPassword);
 
         LoginController.setUsername(userName);
+        System.out.println("UI class says: " + userName);
 
         LoginController.setPassword(userPassword);
 

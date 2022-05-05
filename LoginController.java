@@ -32,5 +32,6 @@ public class LoginController {
 
     public static void showUI() throws IOException {
         loginUI.startLoginUI();
+        System.out.println("Controller class sees: " + username);
     }
 }
