@@ -7,15 +7,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import hibernate.entity.Activity;
-import hibernate.entity.Contains;
 import hibernate.entity.Customer;
 import hibernate.entity.Order;
 import hibernate.entity.Professor;
-import hibernate.entity.Staff;
 import hibernate.entity.Student;
 
 public class DatabaseController {
@@ -85,30 +81,6 @@ public class DatabaseController {
 		return true;
 
 	}
-			
-	public boolean CreateStaff(String name, String role) {
-		
-		Session session = DatabaseSession.getInstance().getSession();
-
-		try {
-		
-			System.out.println("Creating Staff");
-			Staff newStaff = new Staff(name, role);
-			
-			session.beginTransaction();
-			session.save(newStaff)
-			;
-			System.out.println("Saving Staff: " + newStaff.toString());
-			session.getTransaction().commit();
-		
-		}catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		
-		return true;
-
-}
 
 	public boolean CreateActivity(String name, double price) {
 		
@@ -132,22 +104,21 @@ public class DatabaseController {
 		return true;
 	}
 	
-	public boolean CreateOrder(int order_id, Date date, LocalDateTime time, double total_price, int bronco_id,
-			ArrayList<Activity> items) {
+	public boolean CreateOrder(Date date,String status, int bronco_id,
+			List<Activity> items) {
 		
 		Session session = DatabaseSession.getInstance().getSession();
 		
 		try {
 			
-			ArrayList<Activity> tempItems = items;
+			List<Activity> tempItems = items;
 			double totalCost = 0;
 			for(int i = 0; i < tempItems.size(); i++) {
 				double cost = tempItems.get(0).getPrice();
 				totalCost += cost; 
 			}
-			//get active bronco_id
 			System.out.println("Creating Order");
-			//Order newOrder = new Order(bronco_id, date, time, totalCost, bronco_id, tempItems);
+			//Order newOrder = new Order(bronco_id, date, , totalCost, bronco_id, tempItems);
 			session.beginTransaction();
 			
 			
@@ -164,23 +135,18 @@ public class DatabaseController {
 		return true;
 	}
 	
-	public boolean verifyLogIn(String user, String pass) {
+	public boolean verifyLogIn(int bronco_id) {
 		
 		Session session = DatabaseSession.getInstance().getSession();
 		
 		session.beginTransaction();
-		List<Customer> customer = session.createQuery("FROM Customer C WHERE C.username = :username", Customer.class).setParameter("username", user).getResultList();
+		List<Customer> customer = session.createQuery("FROM Customer C WHERE C.bronco_id = :bronco_id", Customer.class).setParameter("bronco_id", bronco_id).getResultList();
 		if(customer.isEmpty()) {
 			return false;
-		}
-		Customer currentUser = customer.get(0);
-		
-		if(currentUser.getPassword().equals(pass)){
-			return true;
 		}else {
-			return false;
+			return true;
+			
 		}
-		
 		
 	}
 		
