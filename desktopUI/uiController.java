@@ -1,4 +1,5 @@
 package desktopUI;
+import hibernate.controller.*;
 import java.io.IOException;
 
 // testing!
@@ -34,7 +35,7 @@ public class uiController {
         welcomeUI.startWelcomeUI();
     }
 
-    public static void verifyLogIn(String BroncoID,String password) {
+    public static void verifyLogIn(int BroncoID) {
         boolean access = DatabaseController.getInstance().verifyLogIn(BroncoID);
         if(access == false) {
             //reject
