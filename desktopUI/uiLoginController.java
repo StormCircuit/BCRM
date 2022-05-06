@@ -27,15 +27,13 @@ public class uiLoginController {
         // probably will not be handled by the UI controller
         System.out.println("Success!");
         String userName = usernameFieldText.getText();
-        String userPassword = passwordFieldText.getText();
+        //String userPassword = passwordFieldText.getText();
 
         // System.out.println(userName);
         // System.out.println(userPassword);
 
-        uiController.setUsername(userName);
+        uiController.setBroncoID(Integer.parseInt(userName));
         System.out.println("UI class says: " + userName);
-
-        uiController.setPassword(userPassword);
 
 
         //close the stage once the buttons clicked. Should return to the 'showAndWait' caller

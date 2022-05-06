@@ -8,42 +8,34 @@ public class uiController {
     private static final uiController uiController = new uiController();
     private static final uiLoginController loginUI = new uiLoginController();
     private static final uiWelcomeController welcomeUI = new uiWelcomeController();
-    private static String username;
-    private static String password;
+    private static int BroncoID;
+    //private static String password;
 
     public static uiController getInstance() {
         return uiController;
     }
 
     // getting and setting
-    public static void setUsername(String usernameArg) {
-        // set the username
-        username = usernameArg;
+    public static void setBroncoID(int IDArg) {
+        // set the BroncoID
+        BroncoID = IDArg;
     }
 
-    public static void setPassword(String passwordArg) {
-        password = passwordArg;
-    }
-
-    public static String getUsername() {
-        return username;
-    }
-
-    public static String getPassword() {
-        return password;
+    public static int getID() {
+        return BroncoID;
     }
 
     public static void showLoginUI() throws IOException {
         loginUI.startLoginUI();
-        System.out.println("Controller class sees: " + username);
+        System.out.println("Controller class sees: " + BroncoID);
     }
 
     public static void showWelcomeUI() throws IOException {
         welcomeUI.startWelcomeUI();
     }
 
-    public static void verifyLogIn(String username,String password) {
-        boolean access = DatabaseController.getInstance().verifyLogIn(username, password);
+    public static void verifyLogIn(String BroncoID,String password) {
+        boolean access = DatabaseController.getInstance().verifyLogIn(BroncoID);
         if(access == false) {
             //reject
         }else if(access = true) {
