@@ -27,15 +27,21 @@ public class uiController {
     }
 
     public static void showLoginUI() throws IOException {
+
+        //call loginUI's startLoginUI method to initiate the login window
         loginUI.startLoginUI();
-        System.out.println("Controller class sees: " + BroncoID);
+
+        //take parameters, now stored in the class vars and call the connect routine to verify the credentials
+        //"verifying" means initiating a connection with their broncoID
+        verifyLogIn();
+        //System.out.println("Controller class sees: " + BroncoID);
     }
 
     public static void showWelcomeUI() throws IOException {
         welcomeUI.startWelcomeUI();
     }
 
-    public static void verifyLogIn(int BroncoID) {
+    public static void verifyLogIn() {
         boolean access = DatabaseController.getInstance().verifyLogIn(BroncoID);
         if(access == false) {
             //reject
