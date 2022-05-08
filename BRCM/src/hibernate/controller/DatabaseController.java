@@ -194,5 +194,19 @@ public class DatabaseController {
 
 		return activities;
 	}
+	
+	public List<Order> getActiveOrders(int bronco_id){
+		
+		Session session = DatabaseSession.getInstance().getSession();
+		
+		List<Customer> customer = session.createQuery("FROM Customer C WHERE C.bronco_id = :bronco_id", Customer.class).setParameter("bronco_id", bronco_id).getResultList();
+		Customer c = customer.get(0);
+		
+		List<Order> orders = session.createQuery("FROM Order o WHERE o.customer= :customer", Order.class).setParameter("customer", c).getResultList();
+		
+		return orders;
+		
+	}
+
 }
 
