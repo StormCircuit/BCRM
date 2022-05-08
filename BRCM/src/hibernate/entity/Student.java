@@ -37,6 +37,10 @@ public class Student {
 	@Column(name="minor")
 	private String minor;
 	
+	public Student() {
+		
+	}
+	
 	public Student(Customer customer, Date enterDate, Date gradDate, String major, String minor) {
 		super();
 		this.customer = customer;

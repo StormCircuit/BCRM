@@ -1,6 +1,5 @@
 package hibernate.entity;
 
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -16,10 +17,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="order")
+@Table(name="\"order\"")
 public class Order {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	@Column(name="order_id")
 	private int order_id;
 	
@@ -42,6 +44,10 @@ public class Order {
 		joinColumns = {@JoinColumn(name="order_id")},
 		inverseJoinColumns = {@JoinColumn(name="activity_id")})
 	List<Activity> items = new ArrayList<>();
+	
+	public Order() {
+		
+	}
 
 
 	public Order(Date date, String status, double total_price, Customer customer,
@@ -116,7 +122,14 @@ public class Order {
 	}
 
 
-
+	public void addProduct(Activity activity) {
+		
+		if (items == null) {
+			items = new ArrayList<>();
+		}
+		
+		items.add(activity);
+	}	
 	
 	
 }

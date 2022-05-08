@@ -112,6 +112,14 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public List<Order> getOrders() {
+		return orders;
+	}
+	
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
 
 	@Override
 	public String toString() {

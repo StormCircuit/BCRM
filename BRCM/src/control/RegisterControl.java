@@ -58,19 +58,23 @@ public class RegisterControl extends HttpServlet {
 						
 			DatabaseController db = new DatabaseController();
 			
-			db.CreateStudent(123456789, "bBronco", "123", "Billy Bronco", 
+			db.CreateStudent(123456789, "bbronco", "123", "Billy Bronco", 
 					"01/01/1999", "(909) 646-4098", "3801 W Temple Ave",
 					"09/01/2019", "05/23/2023", "Computer Science", "none");
 			
 			Calendar c = Calendar.getInstance();
 			Date date = c.getTime();
 			
+			Order order = new Order();
+			
 			for (int i=0; i< values.length; i++)
 			{
-				db.CreateActivity(values[i], 9.99);
+				Activity activity = new Activity(values[i], 9.99);
+				order.addProduct(activity);
 			}
 			
-			List<Activity> items = new ArrayList<>();
+			
+			List<Activity> items = order.getItems();
 			db.CreateOrder(date, "online-pending", 123456789, items);
 		}
 		
