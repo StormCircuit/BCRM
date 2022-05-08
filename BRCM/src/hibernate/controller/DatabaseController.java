@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import hibernate.entity.Activity;
 import hibernate.entity.Customer;
@@ -41,7 +42,7 @@ public class DatabaseController {
 		Customer newCustomer = new Customer(b_id, username, password, name, formatter.parse(dob), phone, address);
 		Student newStudent = new Student(newCustomer, formatter.parse(enter_date), formatter.parse(grad_date), major, minor);
 		
-		session.beginTransaction();
+		//session.beginTransaction();
 		
 		session.save(newStudent);
 		
@@ -66,7 +67,7 @@ public class DatabaseController {
 			Customer newCustomer = new Customer(b_id, username, password, name, formatter.parse(dob), phone, address);
 			Professor newProfessor = new Professor(newCustomer, department, office, research);
 			
-			session.beginTransaction();
+			//session.beginTransaction();
 			
 			session.save(newProfessor);
 			
@@ -91,9 +92,8 @@ public class DatabaseController {
 			System.out.println("Creating Activity");
 			Activity newActivity = new Activity(name, price);
 			
-			session.beginTransaction();
-			session.save(newActivity)
-			;
+			//session.beginTransaction();
+			session.save(newActivity);
 			System.out.println("Saving Activity: " + newActivity.toString());
 			session.getTransaction().commit();
 			
@@ -117,11 +117,33 @@ public class DatabaseController {
 				double cost = tempItems.get(0).getPrice();
 				totalCost += cost; 
 			}
+			
 			List<Customer> customer = session.createQuery("FROM Customer C WHERE C.bronco_id = :bronco_id", Customer.class).setParameter("bronco_id", bronco_id).getResultList();
 			Customer c = customer.get(0);
+			List<Professor> professor = session.createQuery("FROM Professor C WHERE C.customer = :customer", Professor.class).setParameter("customer", c).getResultList();
+			List<Student> student = session.createQuery("FROM Student C WHERE C.customer = :customer", Student.class).setParameter("customer", c).getResultList();
+			
+			
+			if(!professor.isEmpty()) {
+				double discount = totalCost * 0.1;
+				totalCost -= discount;
+			}else if(!student.isEmpty()){
+				double discount = totalCost * 0.2;
+				System.out.println(discount);
+				totalCost = totalCost - discount;
+			}
+		
 			System.out.println("Creating Order");
 			Order newOrder = new Order(date,status,totalCost,c,items);
-			session.beginTransaction();
+			
+			List<Order> orders = c.getOrders();
+			orders.add(newOrder);
+			
+			c.setOrders(orders);
+			session.update(c);
+			session.save(newOrder);
+			session.getTransaction().commit();
+			System.out.println(newOrder.toString());
 			
 			
 			
@@ -141,7 +163,7 @@ public class DatabaseController {
 		
 		Session session = DatabaseSession.getInstance().getSession();
 		
-		session.beginTransaction();
+		
 		List<Customer> customer = session.createQuery("FROM Customer C WHERE C.bronco_id = :bronco_id", Customer.class).setParameter("bronco_id", bronco_id).getResultList();
 		if(customer.isEmpty()) {
 			return false;
@@ -152,8 +174,25 @@ public class DatabaseController {
 		
 	}
 		
+	public Activity getActivity(String name) {
 
+		
+		Session session = DatabaseSession.getInstance().getSession();
+		
+		List<Activity> items = session.createQuery("FROM Activity A WHERE A.name = :name", Activity.class).setParameter("name", name).getResultList();
+		
+		Activity activity = items.get(0); 
+		
+		return activity;
+	}
+	
+	public List<Activity> getAllActivity(){
+		
+		Session session = DatabaseSession.getInstance().getSession();
+		
+		List<Activity> activities = session.createQuery("FROM Activity", Activity.class).getResultList();
 
-
+		return activities;
+	}
 }
 
