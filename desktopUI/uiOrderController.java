@@ -14,7 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 public class uiOrderController {
-    Stage primaryStage;
+    static Stage primaryStage;
     List<ActivityTableDataClass> newOrder;
     public uiOrderController(List<ActivityTableDataClass> ArgNewOrder){
         this.newOrder = ArgNewOrder;
@@ -36,11 +36,15 @@ public class uiOrderController {
 
     @FXML
     void buttonCheckoutAction(ActionEvent event) {
+        //finalize the data in the db by sending the order
 
     }
 
     @FXML
-    void buttonCancelAction(ActionEvent event) {
+    void buttonCancelAction(ActionEvent event) throws IOException {
+        primaryStage.hide();
+        uiRegisterController registerUI = new uiRegisterController();
+        registerUI.startRegisterUI();
 
     }
 

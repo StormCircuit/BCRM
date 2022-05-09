@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 public class uiWelcomeController {
-    Stage primaryStage;
+    static Stage primaryStage;
     ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
 
     //FXML scene builder code begins here
@@ -52,6 +52,7 @@ public class uiWelcomeController {
 
     @FXML
     void buttonOpenRegisterUI(ActionEvent event) throws IOException {
+        primaryStage.hide();
         uiRegisterController registerUI = new uiRegisterController();
         registerUI.startRegisterUI();
 
@@ -59,8 +60,10 @@ public class uiWelcomeController {
 
     
     @FXML
-    void buttonReportClicked(ActionEvent event) {
-
+    void buttonReportClicked(ActionEvent event) throws IOException {
+        primaryStage.hide();
+        reportUIcontroller reportUI = new reportUIcontroller();
+        reportUI.startReportUI();
     }
 
     //FXML code ends here
@@ -103,8 +106,8 @@ public class uiWelcomeController {
         primaryStage.setTitle("BCRM welcome");
 
         // finalize/show the window
-        tablePopulator(uiController.getID());
-        primaryStage.showAndWait();
+        //tablePopulator(uiController.getID());
+        primaryStage.show();
     }
 
 }

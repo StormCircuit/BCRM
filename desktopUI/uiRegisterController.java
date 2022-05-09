@@ -25,10 +25,10 @@ import java.util.Date;
 import java.util.List;
 
 public class uiRegisterController {
-    Stage primaryStage;
+    static Stage primaryStage;
     ObservableList<ActivityTableDataClass> activityTableData;
     List<ActivityTableDataClass> newOrder;
-    ObservableList<Activity> listOfActivities = FXCollections.observableArrayList(DatabaseController.getInstance().getAllActivity());
+    //ObservableList<Activity> listOfActivities = FXCollections.observableArrayList(DatabaseController.getInstance().getAllActivity());
     
     @FXML
     private Button buttonLogout;
@@ -45,15 +45,27 @@ public class uiRegisterController {
     private TableView<ActivityTableDataClass> tableRegisteredActivities = new TableView<ActivityTableDataClass>();
 
     @FXML
-    void buttonLogout(ActionEvent event) {
-
-    }
-
-    @FXML
     private Button buttonAddToOrder;
 
     @FXML
     private Button buttonViewOrder;
+
+    
+    @FXML
+    private Button buttonOpenWelcomeUI;
+
+    @FXML
+    void buttonOpenWelcomeUI(ActionEvent event) throws IOException {
+        primaryStage.hide();
+        uiWelcomeController welcomeUI = new uiWelcomeController();
+        welcomeUI.startWelcomeUI();
+
+    }
+
+    @FXML
+    void buttonLogout(ActionEvent event) {
+
+    }
 
     @FXML
     void tableSelectionClick(ActionEvent event) {
@@ -78,8 +90,14 @@ public class uiRegisterController {
 
     @FXML
     void buttonViewOrder(ActionEvent event) throws IOException {
-        uiOrderController orderUI = new uiOrderController(newOrder);
-        orderUI.startOrderUI();
+        if(newOrder == null){
+            alertOrderEmptyUIcontroller alertUI = new alertOrderEmptyUIcontroller();
+            alertUI.startAlertOrderEmptyUI();
+        }
+        else{
+            uiOrderController orderUI = new uiOrderController(newOrder);
+            orderUI.startOrderUI();
+        }
     }
 
     //FXML code ends here
@@ -155,7 +173,7 @@ public class uiRegisterController {
         primaryStage.setTitle("BCRM");
 
         // finalize/show the window
-        tablePopulator(uiController.getID());
+        //tablePopulator(uiController.getID());
         primaryStage.showAndWait();
     }
 
