@@ -22,14 +22,21 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class uiWelcomeController {
+public class uiRegisterController {
     static Stage primaryStage;
     ObservableList<ActivityTableDataClass> activityTableData;
+    List<Activity> newOrder;
+    List<Activity> listOfActivities = DatabaseController.getInstance().getAllActivity();
 
-    private class ActivityTableDataClass{
+    private class ActivityTableDataClass extends Activity{
+        public ActivityTableDataClass(String name, double price) {
+            super(name, price);
+        }
+
         private StringProperty activityName;
         private StringProperty activityPrice;
 
@@ -77,21 +84,63 @@ public class uiWelcomeController {
 
     }
 
+    @FXML
+    private Button buttonAddToOrder;
+
+    @FXML
+    private Button buttonViewOrder;
+
+    @FXML
+    void tableSelectionClick(ActionEvent event) {
+
+    }
+
+    @FXML
+    void buttonAddToOrder(ActionEvent event) {
+        newOrder.add(tableRegisteredActivities.getSelectionModel().getSelectedItem());
+        
+        //get each selection (when user presses a button) and add it to an activity list.
+        //this list will be passed to the databasecontroller wherever we finalize the order
+
+        //CreateOrder(Date date,String status, int bronco_id, List<Activity> items)
+        /**
+        Calendar c = Calendar.getInstance();
+		Date date = c.getTime();
+        DatabaseController.CreateOrder(date, "COUNTER", uiController.getID(), newOrder);
+        */
+    }
+
+    @FXML
+    void buttonViewOrder(ActionEvent event) {
+
+    }
+
     //FXML code ends here
     private void tablePopulator(int BroncoID){
         //update the ObservableList at the top with the orders.
-        List<Order> listOfOrders = DatabaseController.getInstance().getActiveOrders(BroncoID);
+        listOfActivities = DatabaseController.getInstance().getAllActivity();
+
+        //remove any activities that are already registered for.
+        List<Order> listOfCustomerOrders = DatabaseController.getInstance().getActiveOrders(BroncoID);
+        for (Order a : listOfCustomerOrders){
+            for (Activity b : a.getItems()){
+                for (Activity c : listOfActivities){
+                    if (b.getName() == c.getName()){
+                        listOfActivities.remove(b);
+                    }
+                }
+
+            }
+        }
         
 
-        for (Order i : listOfOrders){
-            for(Activity j : i.getItems()){
-                //fill our array from each activity j
-                //To do this we must create new ActivityTableDataClass objects and fill the array activityTableData with them.
-                ActivityTableDataClass newData = new ActivityTableDataClass();
-                newData.setActivityName(j.getName());
-                newData.setActivityPrice(Double.toString(j.getPrice()));
-                activityTableData.add(newData);
-            }
+        for (Activity i : listOfActivities){
+            //fill our array from each activity j
+            //To do this we must create new ActivityTableDataClass objects and fill the array activityTableData with them.
+            ActivityTableDataClass newData = new ActivityTableDataClass();
+            newData.setActivityName(i.getName());
+            newData.setActivityPrice(Double.toString(i.getPrice()));
+            activityTableData.add(newData);
         }
         //add all the activities to the ObservableList
         tableRegisteredActivities.setItems(activityTableData);
