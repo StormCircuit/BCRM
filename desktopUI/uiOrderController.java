@@ -15,13 +15,13 @@ import javafx.stage.Stage;
 
 public class uiOrderController {
     Stage primaryStage;
-    List<Activity> newOrder;
-    public uiOrderController(List<Activity> ArgNewOrder){
+    List<ActivityTableDataClass> newOrder;
+    public uiOrderController(List<ActivityTableDataClass> ArgNewOrder){
         this.newOrder = ArgNewOrder;
     }
 
     @FXML
-    private TableView<?> tableOrder;
+    private TableView<ActivityTableDataClass> tableOrder = new TableView<ActivityTableDataClass>();
 
     @FXML
     private Button buttonCancel;

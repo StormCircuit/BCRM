@@ -5,8 +5,6 @@ import java.io.IOException;
 import hibernate.controller.DatabaseController;
 import hibernate.entity.Activity;
 import hibernate.entity.Order;
-
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,40 +27,12 @@ import java.util.List;
 public class uiRegisterController {
     Stage primaryStage;
     ObservableList<ActivityTableDataClass> activityTableData;
-    List<Activity> newOrder;
-    List<Activity> listOfActivities = DatabaseController.getInstance().getAllActivity();
-
-    private class ActivityTableDataClass extends Activity{
-        public ActivityTableDataClass(String name, double price) {
-            super(name, price);
-        }
-
-        private StringProperty activityName;
-        private StringProperty activityPrice;
-
-        public void setActivityName(String argActivityName){
-            activityName.set(argActivityName);
-        }
-
-        public void setActivityPrice(String argPrice){
-            activityPrice.set(argPrice);
-        }
-
-        public String getActivityName(){
-            return activityName.get();
-        }
-
-        public String getActivityPrice(){
-            return activityPrice.get();
-        }
-
-    }
-    //FXML scene builder code begins here
-
-
+    List<ActivityTableDataClass> newOrder;
+    ObservableList<Activity> listOfActivities = FXCollections.observableArrayList(DatabaseController.getInstance().getAllActivity());
+    
     @FXML
     private Button buttonLogout;
-    //IMPLEMENT LOGOUT! RETURN TO LOGIN UI!
+    //IMPLEMENT LOGOUT! RETURN TO WELCOME* UI!
 
     @FXML
     private Text textWelcomeUser;
@@ -77,12 +47,6 @@ public class uiRegisterController {
     @FXML
     void buttonLogout(ActionEvent event) {
 
-    }
-
-    @FXML
-    void buttonOpenRegisterUI(ActionEvent event) throws IOException {
-        uiOrderController orderUI = new uiOrderController(newOrder);
-        orderUI.startOrderUI();
     }
 
     @FXML
@@ -113,14 +77,17 @@ public class uiRegisterController {
     }
 
     @FXML
-    void buttonViewOrder(ActionEvent event) {
-
+    void buttonViewOrder(ActionEvent event) throws IOException {
+        uiOrderController orderUI = new uiOrderController(newOrder);
+        orderUI.startOrderUI();
     }
 
     //FXML code ends here
+
+    //WARNING FOR YOUR EYES! HERE THERE BE A MESS OF IDEAS COMMENTED OUT!
     private void tablePopulator(int BroncoID){
         //update the ObservableList at the top with the orders.
-        listOfActivities = DatabaseController.getInstance().getAllActivity();
+        //listOfActivities = DatabaseController.getInstance().getAllActivity();
 
         //remove any activities that are already registered for.
         List<Order> listOfCustomerOrders = DatabaseController.getInstance().getActiveOrders(BroncoID);
@@ -136,15 +103,33 @@ public class uiRegisterController {
         }
         
         //REFACTOR AFTER EXTENDING ACTIVITY!!!
+        
         for (Activity i : listOfActivities){
-            //fill our array from each activity j
-            //To do this we must create new ActivityTableDataClass objects and fill the array activityTableData with them.
-            ActivityTableDataClass newData = new ActivityTableDataClass(null, BroncoID);
-            newData.setActivityName(i.getName());
-            newData.setActivityPrice(Double.toString(i.getPrice()));
+            //int j = 0;
+
+            //super simple casting, since we extend object. The multiline code is a previous implementation left
+            //for legacy/bug fixing purposes.
+
+            //the idea here is since I extended the Activity object to ActivityTableDataClass I can then simply cast it upwards
+            //with no loss of data
+            //listOfActivities.set(j, (ActivityTableDataClass) listOfActivities.get(j));
+
+
+
+            //To do this we must create new ActivityTableDataClass objects and fill the ObservableList activityTableData with them.
+            ActivityTableDataClass newData = new ActivityTableDataClass(i.getName(), i.getPrice());
             activityTableData.add(newData);
+
+            //j++;
         }
-        //add all the activities to the ObservableList
+        //PREV IMPLEMENTATION: add all the activities to the ObservableList
+        //tableRegisteredActivities.setItems(activityTableData);
+
+        //Horrible attempt at casting a list of activities to an observable list of activity table data classes (down classing)
+        //it didnt work.
+        //ObservableList<ActivityTableDataClass> listOfTableFormattedActivities = listOfActivities;
+
+        //add the observablelist of activities to the table.
         tableRegisteredActivities.setItems(activityTableData);
     }
 

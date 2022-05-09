@@ -12,7 +12,6 @@ public class UIDebugStart extends Application{
 
     public void start(Stage primaryStage) throws IOException{
         //do whatever
-        uiController.showLoginUI();
         uiController.showWelcomeUI();
     }
 }
