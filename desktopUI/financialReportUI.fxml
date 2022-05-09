@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="reportUIcontroller">
+   <children>
+      <TableView fx:id="reportTable" layoutX="143.0" layoutY="100.0" prefHeight="200.0" prefWidth="314.0">
+        <columns>
+          <TableColumn prefWidth="154.0" text="Customer" />
+          <TableColumn prefWidth="159.0" text="Revenue" />
+        </columns>
+      </TableView>
+      <Text layoutX="247.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Financial Report" />
+      <VBox layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Menu" />
+            <Button fx:id="buttonHome" mnemonicParsing="false" onAction="#buttonHomeClicked" text="Home" />
+            <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#buttonLogoutClicked" text="Logout" />
+         </children>
+      </VBox>
+   </children>
+</Pane>

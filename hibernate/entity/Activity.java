@@ -10,6 +10,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="activity")
 public class Activity {
+	public Activity(){
+		super();
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)

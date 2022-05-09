@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="receiptUIcontroller">
+   <children>
+      <TableView fx:id="receiptTable" layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Activity" />
+          <TableColumn prefWidth="44.0" text="Price" />
+            <TableColumn prefWidth="75.0" text="Date" />
+        </columns>
+      </TableView>
+      <Text layoutX="275.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receipt" />
+      <Button fx:id="buttonHome" layoutX="269.0" layoutY="323.0" mnemonicParsing="false" onAction="#buttonHomeClicked" text="Home" />
+   </children>
+</Pane>

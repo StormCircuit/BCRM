@@ -27,7 +27,7 @@ import java.util.List;
 
 public class uiWelcomeController {
     Stage primaryStage;
-    ObservableList<ActivityTableDataClass> activityTableData;
+    ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
 
     //FXML scene builder code begins here
 
@@ -43,7 +43,7 @@ public class uiWelcomeController {
     private Button buttonOpenRegisterUI;
 
     @FXML
-    private TableView<ActivityTableDataClass> tableRegisteredActivities = new TableView<ActivityTableDataClass>();
+    private TableView<ActivityTableDataClass> tableRegisteredActivities;
 
     @FXML
     void buttonLogout(ActionEvent event) {
@@ -51,7 +51,15 @@ public class uiWelcomeController {
     }
 
     @FXML
-    void buttonOpenRegisterUI(ActionEvent event) {
+    void buttonOpenRegisterUI(ActionEvent event) throws IOException {
+        uiRegisterController registerUI = new uiRegisterController();
+        registerUI.startRegisterUI();
+
+    }
+
+    
+    @FXML
+    void buttonReportClicked(ActionEvent event) {
 
     }
 
