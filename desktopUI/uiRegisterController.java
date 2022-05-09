@@ -80,9 +80,9 @@ public class uiRegisterController {
     }
 
     @FXML
-    void buttonOpenRegisterUI(ActionEvent event) {
-        uiRegisterController registerUI = new uiRegisterController();
-        
+    void buttonOpenRegisterUI(ActionEvent event) throws IOException {
+        uiOrderController orderUI = new uiOrderController(newOrder);
+        orderUI.startOrderUI();
     }
 
     @FXML

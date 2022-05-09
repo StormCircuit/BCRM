@@ -1,8 +1,17 @@
 package desktopUI;
 
+import java.io.IOException;
+import java.util.List;
+
+import hibernate.entity.Activity;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 
 public class uiOrderController {
     Stage primaryStage;
@@ -35,7 +44,7 @@ public class uiOrderController {
 
     }
 
-    public void startRegisterUI() throws IOException {
+    public void startOrderUI() throws IOException {
 
         //set this objects stage reference since this is where we come into the method.
         primaryStage = new Stage();
@@ -49,7 +58,7 @@ public class uiOrderController {
         // get the file. I am not sure why this is,
         // just that the docs specify it this way
         // Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
-        Parent page = (Parent) FXMLLoader.load(getClass().getResource("registerUI.fxml"));
+        Parent page = (Parent) FXMLLoader.load(getClass().getResource("orderUI.fxml"));
 
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
@@ -57,7 +66,6 @@ public class uiOrderController {
         primaryStage.setTitle("BCRM");
 
         // finalize/show the window
-        tablePopulator(uiController.getID());
         primaryStage.showAndWait();
     }
 
