@@ -29,27 +29,6 @@ public class uiWelcomeController {
     Stage primaryStage;
     ObservableList<ActivityTableDataClass> activityTableData;
 
-    private class ActivityTableDataClass{
-        private StringProperty activityName;
-        private StringProperty activityPrice;
-
-        public void setActivityName(String argActivityName){
-            activityName.set(argActivityName);
-        }
-
-        public void setActivityPrice(String argPrice){
-            activityPrice.set(argPrice);
-        }
-
-        public String getActivityName(){
-            return activityName.get();
-        }
-
-        public String getActivityPrice(){
-            return activityPrice.get();
-        }
-
-    }
     //FXML scene builder code begins here
 
 
@@ -63,7 +42,6 @@ public class uiWelcomeController {
     @FXML
     private Button buttonOpenRegisterUI;
 
-    //why isnt this a method????
     @FXML
     private TableView<ActivityTableDataClass> tableRegisteredActivities = new TableView<ActivityTableDataClass>();
 
@@ -87,9 +65,7 @@ public class uiWelcomeController {
             for(Activity j : i.getItems()){
                 //fill our array from each activity j
                 //To do this we must create new ActivityTableDataClass objects and fill the array activityTableData with them.
-                ActivityTableDataClass newData = new ActivityTableDataClass();
-                newData.setActivityName(j.getName());
-                newData.setActivityPrice(Double.toString(j.getPrice()));
+                ActivityTableDataClass newData = new ActivityTableDataClass(j.getName(), j.getPrice());
                 activityTableData.add(newData);
             }
         }
