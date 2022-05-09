@@ -9,7 +9,9 @@ public class uiController {
     private static final uiController uiController = new uiController();
     private static final uiLoginController loginUI = new uiLoginController();
     private static final uiWelcomeController welcomeUI = new uiWelcomeController();
-    private static int BroncoID;
+    
+    //GIVE ME A HARD CODED BRONCO ID FROM THE DB!!
+    private static int BroncoID = 13657527;
     //private static String password;
 
     public static uiController getInstance() {
@@ -19,7 +21,9 @@ public class uiController {
     // getting and setting
     public static void setBroncoID(int IDArg) {
         // set the BroncoID
-        BroncoID = IDArg;
+        //THIS IS DEACTIVATED FOR NOW AS WE ARE USING A HARD CODED ID!!! THE ID WILL NOT CHANGE AND IS
+        //ASSIGNED AT THE TOP!!!
+        //BroncoID = IDArg;
     }
 
     public static int getID() {
