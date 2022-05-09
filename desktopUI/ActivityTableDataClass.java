@@ -8,17 +8,17 @@ class ActivityTableDataClass extends Activity{
         super(name, price);
     }
 
-    private StringProperty activityName;
-    private StringProperty activityPrice;
+    public String ActivityName = String.valueOf(getName());
+    public String ActivityPrice = String.valueOf(getPrice());
 
-    public String getActivityNameProperty(){
-        activityName.set(getName());
-        return activityName.get();
+    public String getActivityName(){
+        ActivityName = String.valueOf(getName());
+        return ActivityName;
     }
 
-    public String getActivityPriceProperty(){
-        activityPrice.set(String.valueOf(getPrice()));
-        return activityPrice.get();
+    public String getActivityPrice(){
+        ActivityPrice = String.valueOf(getName());
+        return ActivityPrice;
     }
 
     /*

@@ -1,6 +1,7 @@
 package desktopUI;
 
 import java.io.IOException;
+import java.net.URL;
 
 import hibernate.controller.DatabaseController;
 import hibernate.entity.Activity;
@@ -12,11 +13,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -24,9 +27,11 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class uiWelcomeController {
+public class uiWelcomeController implements Initializable {
     static Stage primaryStage;
+    static TableView<ActivityTableDataClass> tableRegisteredActivitiesAlias;
     ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
 
     //FXML scene builder code begins here
@@ -34,16 +39,18 @@ public class uiWelcomeController {
 
     @FXML
     private Button buttonLogout;
-    //IMPLEMENT LOGOUT! RETURN TO LOGIN UI!
-
-    @FXML
-    private Text textWelcomeUser;
 
     @FXML
     private Button buttonOpenRegisterUI;
 
     @FXML
     private TableView<ActivityTableDataClass> tableRegisteredActivities;
+    
+    @FXML
+    private TableColumn<ActivityTableDataClass, String> columnName;
+
+    @FXML
+    private TableColumn<ActivityTableDataClass, String> columnPrice;
 
     @FXML
     void buttonLogout(ActionEvent event) {
@@ -81,6 +88,8 @@ public class uiWelcomeController {
             }
         }
         //add all the activities to the ObservableList
+        
+        //set the table to use the list we just made
         tableRegisteredActivities.setItems(activityTableData);
     }
 
@@ -98,7 +107,11 @@ public class uiWelcomeController {
         // get the file. I am not sure why this is,
         // just that the docs specify it this way
         // Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
-        Parent page = (Parent) FXMLLoader.load(getClass().getResource("welcomeUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("welcomeUI.fxml"));
+        Parent page = (Parent) loader.load();
+        loader.setController(this);
+        
+        
 
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
@@ -106,8 +119,19 @@ public class uiWelcomeController {
         primaryStage.setTitle("BCRM welcome");
 
         // finalize/show the window
-        //tablePopulator(uiController.getID());
         primaryStage.show();
+    }
+
+    @FXML
+    public void initialize(URL location, ResourceBundle resources) {
+        
+        columnName.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("ActivityName"));
+        columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("ActivityPrice"));
+        tableRegisteredActivitiesAlias = tableRegisteredActivities;
+        //here is where javafx loses the tableview.
+        //By the time startWelcomeUI is traversed it is gone.
+        tablePopulator(uiController.getID());
+        System.out.println();
     }
 
 }

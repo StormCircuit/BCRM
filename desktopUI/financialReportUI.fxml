@@ -18,7 +18,6 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Menu" />
             <Button fx:id="buttonHome" mnemonicParsing="false" onAction="#buttonHomeClicked" text="Home" />
-            <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#buttonLogoutClicked" text="Logout" />
          </children>
       </VBox>
    </children>
