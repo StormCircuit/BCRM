@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 public class uiRegisterController {
-    static Stage primaryStage;
+    Stage primaryStage;
     ObservableList<ActivityTableDataClass> activityTableData;
     List<Activity> newOrder;
     List<Activity> listOfActivities = DatabaseController.getInstance().getAllActivity();
@@ -81,7 +81,8 @@ public class uiRegisterController {
 
     @FXML
     void buttonOpenRegisterUI(ActionEvent event) {
-
+        uiRegisterController registerUI = new uiRegisterController();
+        
     }
 
     @FXML
@@ -103,10 +104,11 @@ public class uiRegisterController {
         //this list will be passed to the databasecontroller wherever we finalize the order
 
         //CreateOrder(Date date,String status, int bronco_id, List<Activity> items)
-        /**
+        /*
         Calendar c = Calendar.getInstance();
 		Date date = c.getTime();
-        DatabaseController.CreateOrder(date, "COUNTER", uiController.getID(), newOrder);
+        
+        DatabaseController.getInstance().CreateOrder(date, "COUNTER", uiController.getID(), newOrder);
         */
     }
 
@@ -133,11 +135,11 @@ public class uiRegisterController {
             }
         }
         
-
+        //REFACTOR AFTER EXTENDING ACTIVITY!!!
         for (Activity i : listOfActivities){
             //fill our array from each activity j
             //To do this we must create new ActivityTableDataClass objects and fill the array activityTableData with them.
-            ActivityTableDataClass newData = new ActivityTableDataClass();
+            ActivityTableDataClass newData = new ActivityTableDataClass(null, BroncoID);
             newData.setActivityName(i.getName());
             newData.setActivityPrice(Double.toString(i.getPrice()));
             activityTableData.add(newData);
@@ -146,7 +148,7 @@ public class uiRegisterController {
         tableRegisteredActivities.setItems(activityTableData);
     }
 
-    public void startWelcomeUI() throws IOException {
+    public void startRegisterUI() throws IOException {
 
         //set this objects stage reference since this is where we come into the method.
         primaryStage = new Stage();
@@ -160,12 +162,12 @@ public class uiRegisterController {
         // get the file. I am not sure why this is,
         // just that the docs specify it this way
         // Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
-        Parent page = (Parent) FXMLLoader.load(getClass().getResource("welcomeUI.fxml"));
+        Parent page = (Parent) FXMLLoader.load(getClass().getResource("registerUI.fxml"));
 
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("BCRM welcome");
+        primaryStage.setTitle("BCRM");
 
         // finalize/show the window
         tablePopulator(uiController.getID());

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktopUI.uiRegisterController">
+   <children>
+      <TableView id="tableAvailableActivities" fx:id="tableOrder" editable="true" layoutX="119.0" layoutY="100.0" onMouseClicked="#tableSelectionClick" prefHeight="200.0" prefWidth="402.0">
+        <columns>
+          <TableColumn prefWidth="246.0" text="Activity Name" />
+          <TableColumn minWidth="1.0" prefWidth="155.0" text="Price" />
+        </columns>
+      </TableView>
+      <Text layoutX="259.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordered Activities:" />
+      <Button fx:id="buttonCheckout" layoutX="215.0" layoutY="328.0" mnemonicParsing="false" onAction="#buttonCheckoutAction" text="Checkout" />
+      <Button fx:id="buttonCancel" layoutX="349.0" layoutY="328.0" mnemonicParsing="false" onAction="#buttonCancelAction" text="Cancel" />
+   </children>
+</Pane>

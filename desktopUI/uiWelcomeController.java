@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 public class uiWelcomeController {
-    static Stage primaryStage;
+    Stage primaryStage;
     ObservableList<ActivityTableDataClass> activityTableData;
 
     private class ActivityTableDataClass{
