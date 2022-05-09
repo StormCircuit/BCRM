@@ -53,15 +53,6 @@ public class uiOrderController {
         //set this objects stage reference since this is where we come into the method.
         primaryStage = new Stage();
 
-        // primaryStage is taken from application class, it is the first stage the
-        // program will show.
-        // recall that 'stages' are singular instances of windows
-
-        // this is the first UI the program will open.
-        // FXMLLoader takes our fxml file. We use getClass().getResource() to properly
-        // get the file. I am not sure why this is,
-        // just that the docs specify it this way
-        // Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
         Parent page = (Parent) FXMLLoader.load(getClass().getResource("orderUI.fxml"));
 
         // setup scene, primaryStage is our first stage we open

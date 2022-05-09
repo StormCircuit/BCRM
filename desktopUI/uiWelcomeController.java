@@ -38,19 +38,19 @@ public class uiWelcomeController implements Initializable {
 
 
     @FXML
-    private Button buttonLogout;
+    public Button buttonLogout;
 
     @FXML
-    private Button buttonOpenRegisterUI;
+    public Button buttonOpenRegisterUI;
 
     @FXML
-    private TableView<ActivityTableDataClass> tableRegisteredActivities;
+    public TableView<ActivityTableDataClass> tableRegisteredActivities;
     
     @FXML
-    private TableColumn<ActivityTableDataClass, String> columnName;
+    public TableColumn<ActivityTableDataClass, String> columnName;
 
     @FXML
-    private TableColumn<ActivityTableDataClass, String> columnPrice;
+    public TableColumn<ActivityTableDataClass, String> columnPrice;
 
     @FXML
     void buttonLogout(ActionEvent event) {
@@ -109,7 +109,6 @@ public class uiWelcomeController implements Initializable {
         // Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("welcomeUI.fxml"));
         Parent page = (Parent) loader.load();
-        loader.setController(this);
         
         
 
@@ -130,7 +129,7 @@ public class uiWelcomeController implements Initializable {
         tableRegisteredActivitiesAlias = tableRegisteredActivities;
         //here is where javafx loses the tableview.
         //By the time startWelcomeUI is traversed it is gone.
-        tablePopulator(uiController.getID());
+        //tablePopulator(uiController.getID());
         System.out.println();
     }
 
