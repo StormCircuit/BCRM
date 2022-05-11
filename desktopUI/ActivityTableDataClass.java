@@ -19,17 +19,17 @@ public class ActivityTableDataClass extends Activity{
     public StringProperty ActivityPrice = String.valueOf(getPrice());
     */
 
-    public StringProperty getColumnName(){
+    public StringProperty columnNameProperty(){
         columnName.set(String.valueOf(getName()));
         return columnName;
     }
 
-    public StringProperty getColumnPrice(){
+    public StringProperty columnPriceProperty(){
         columnPrice.set(String.valueOf(getPrice()));
         return columnPrice;
     }
 
-    
+    /*
     public void setColumnName() {
         columnName.set(getName());
     }
@@ -37,6 +37,6 @@ public class ActivityTableDataClass extends Activity{
     public void setColumnPrice() {
         columnPrice.set(String.valueOf(getPrice()));
     }
-    
+    */
 
 }

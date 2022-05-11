@@ -85,15 +85,13 @@ public class uiWelcomeController {
                 //fill our array from each activity j
                 //To do this we must create new ActivityTableDataClass objects and fill the array activityTableData with them.
                 ActivityTableDataClass newData = new ActivityTableDataClass(j.getName(), j.getPrice());
-                newData.setColumnName();
-                newData.setColumnPrice();
                 activityTableData.add(newData);
             }
         }
         //add all the activities to the ObservableList
         
         //set the table to use the list we just made
-        System.out.println(activityTableData.get(0).getColumnName());
+        //System.out.println(activityTableData.get(0).getColumnName());
         tableRegisteredActivities.setItems(activityTableData);
     }
 
