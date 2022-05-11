@@ -23,15 +23,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class uiWelcomeController implements Initializable {
+public class uiWelcomeController {
+    uiWelcomeController uiWelcomeController;
     static Stage primaryStage;
-    static TableView<ActivityTableDataClass> tableRegisteredActivitiesAlias;
     ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
 
     //FXML scene builder code begins here
@@ -74,7 +75,7 @@ public class uiWelcomeController implements Initializable {
     }
 
     //FXML code ends here
-    private void tablePopulator(int BroncoID){
+    public void tablePopulator(int BroncoID){
         //update the ObservableList at the top with the orders.
         List<Order> listOfOrders = DatabaseController.getInstance().getActiveOrders(BroncoID);
         
@@ -84,12 +85,15 @@ public class uiWelcomeController implements Initializable {
                 //fill our array from each activity j
                 //To do this we must create new ActivityTableDataClass objects and fill the array activityTableData with them.
                 ActivityTableDataClass newData = new ActivityTableDataClass(j.getName(), j.getPrice());
+                newData.setColumnName();
+                newData.setColumnPrice();
                 activityTableData.add(newData);
             }
         }
         //add all the activities to the ObservableList
         
         //set the table to use the list we just made
+        System.out.println(activityTableData.get(0).getColumnName());
         tableRegisteredActivities.setItems(activityTableData);
     }
 
@@ -98,18 +102,19 @@ public class uiWelcomeController implements Initializable {
         //set this objects stage reference since this is where we come into the method.
         primaryStage = new Stage();
 
-        // primaryStage is taken from application class, it is the first stage the
-        // program will show.
-        // recall that 'stages' are singular instances of windows
-
-        // this is the first UI the program will open.
-        // FXMLLoader takes our fxml file. We use getClass().getResource() to properly
-        // get the file. I am not sure why this is,
-        // just that the docs specify it this way
-        // Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
+        //startWelcoemUI is the entrypoint for this controller. It will get the FXML file,
+        //set the class's uiWelcomeController var to the FXMLLoader's instance and then
+        //call tablePopulate to fill it.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("welcomeUI.fxml"));
         Parent page = (Parent) loader.load();
-        
+
+        //we need to get the instance of the controller we just made so we can populate its table
+        //recall we have to use the instance made by FXMLLoader
+        uiWelcomeController = loader.getController();
+        //uiWelcomeController.columnName.PropertyValueFactoryProperty<ActivityTableDataClass, String>("columnName");
+        uiWelcomeController.columnName.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnName"));
+        uiWelcomeController.columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnPrice"));
+        uiWelcomeController.tablePopulator(uiController.getID());
         
 
         // setup scene, primaryStage is our first stage we open
@@ -120,17 +125,4 @@ public class uiWelcomeController implements Initializable {
         // finalize/show the window
         primaryStage.show();
     }
-
-    @FXML
-    public void initialize(URL location, ResourceBundle resources) {
-        
-        columnName.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("ActivityName"));
-        columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("ActivityPrice"));
-        tableRegisteredActivitiesAlias = tableRegisteredActivities;
-        //here is where javafx loses the tableview.
-        //By the time startWelcomeUI is traversed it is gone.
-        //tablePopulator(uiController.getID());
-        System.out.println();
-    }
-
 }

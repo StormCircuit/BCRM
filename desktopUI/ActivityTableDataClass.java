@@ -1,33 +1,42 @@
 package desktopUI;
 
 import hibernate.entity.Activity;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-class ActivityTableDataClass extends Activity{
+public class ActivityTableDataClass extends Activity{
+    private final StringProperty columnName = new SimpleStringProperty();
+    private final StringProperty columnPrice = new SimpleStringProperty();
+
     public ActivityTableDataClass(String name, double price) {
         super(name, price);
-    }
-
-    public String ActivityName = String.valueOf(getName());
-    public String ActivityPrice = String.valueOf(getPrice());
-
-    public String getActivityName(){
-        ActivityName = String.valueOf(getName());
-        return ActivityName;
-    }
-
-    public String getActivityPrice(){
-        ActivityPrice = String.valueOf(getName());
-        return ActivityPrice;
+        columnName.set(String.valueOf(getName()));
+        columnPrice.set(String.valueOf(getPrice()));
     }
 
     /*
-    public void setActivityName(String name) {
-        
+    public StringProperty ActivityName = String.valueOf(getName());
+    public StringProperty ActivityPrice = String.valueOf(getPrice());
+    */
+
+    public StringProperty getColumnName(){
+        columnName.set(String.valueOf(getName()));
+        return columnName;
     }
 
-    public void setActivityPrice(String string) {
+    public StringProperty getColumnPrice(){
+        columnPrice.set(String.valueOf(getPrice()));
+        return columnPrice;
     }
-    */
+
+    
+    public void setColumnName() {
+        columnName.set(getName());
+    }
+
+    public void setColumnPrice() {
+        columnPrice.set(String.valueOf(getPrice()));
+    }
+    
 
 }
