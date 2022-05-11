@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -25,10 +26,12 @@ import java.util.Date;
 import java.util.List;
 
 public class uiRegisterController {
-    static Stage primaryStage;
-    ObservableList<ActivityTableDataClass> activityTableData;
-    List<ActivityTableDataClass> newOrder;
-    //ObservableList<Activity> listOfActivities = FXCollections.observableArrayList(DatabaseController.getInstance().getAllActivity());
+    Stage primaryStage;
+    ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
+    ObservableList<ActivityTableDataClass> newOrder = FXCollections.observableArrayList();
+    ObservableList<Activity> listOfRegisterableActivities = FXCollections.observableArrayList();
+    List<Activity> listOfAllActivities = new ArrayList<Activity>();
+    uiRegisterController uiRegisterController;
     
     @FXML
     private Button buttonLogout;
@@ -42,7 +45,13 @@ public class uiRegisterController {
 
     //why isnt this a method????
     @FXML
-    private TableView<ActivityTableDataClass> tableRegisteredActivities = new TableView<ActivityTableDataClass>();
+    private TableView<ActivityTableDataClass> tableAvailableActivities;
+    
+    @FXML
+    private TableColumn<ActivityTableDataClass, String> columnPrice;
+
+    @FXML
+    private TableColumn<ActivityTableDataClass, String> columnName;
 
     @FXML
     private Button buttonAddToOrder;
@@ -74,8 +83,8 @@ public class uiRegisterController {
 
     @FXML
     void buttonAddToOrder(ActionEvent event) {
-        newOrder.add(tableRegisteredActivities.getSelectionModel().getSelectedItem());
-        
+        newOrder.add(tableAvailableActivities.getSelectionModel().getSelectedItem());
+        System.out.print(newOrder);
         //get each selection (when user presses a button) and add it to an activity list.
         //this list will be passed to the databasecontroller wherever we finalize the order
 
@@ -103,17 +112,40 @@ public class uiRegisterController {
     //FXML code ends here
 
     //WARNING FOR YOUR EYES! HERE THERE BE A MESS OF IDEAS COMMENTED OUT!
-    private void tablePopulator(int BroncoID){
+    public void tablePopulator(int BroncoID){
         //update the ObservableList at the top with the orders.
-        //listOfActivities = DatabaseController.getInstance().getAllActivity();
 
-        //remove any activities that are already registered for.
+
+        
+        listOfAllActivities = DatabaseController.getInstance().getAllActivity();
         List<Order> listOfCustomerOrders = DatabaseController.getInstance().getActiveOrders(BroncoID);
+        /*
+        for (Activity i : listOfAllActivities){
+            //int j = 0;
+
+            //super simple casting, since we extend object. The multiline code is a previous implementation left
+            //for legacy/bug fixing purposes.
+
+            //the idea here is since I extended the Activity object to ActivityTableDataClass I can then simply cast it upwards
+            //with no loss of data
+            //listOfActivities.set(j, (ActivityTableDataClass) listOfActivities.get(j));
+
+
+
+            //To do this we must create new ActivityTableDataClass objects and fill the ObservableList activityTableData with them.
+            ActivityTableDataClass newData = new ActivityTableDataClass(i.getName(), i.getPrice());
+            activityTableData.add(newData);
+
+            //j++;
+        }
+        //remove any activities that are already registered for.
+        */
         for (Order a : listOfCustomerOrders){
             for (Activity b : a.getItems()){
-                for (Activity c : listOfActivities){
-                    if (b.getName() == c.getName()){
-                        listOfActivities.remove(b);
+                for (Activity c : listOfAllActivities){
+                    if (b.getName() != c.getName()){
+                        ActivityTableDataClass newData = new ActivityTableDataClass(b.getName(), b.getPrice());
+                        activityTableData.add(newData);
                     }
                 }
 
@@ -121,7 +153,7 @@ public class uiRegisterController {
         }
         
         //REFACTOR AFTER EXTENDING ACTIVITY!!!
-        
+        /*
         for (Activity i : listOfActivities){
             //int j = 0;
 
@@ -148,7 +180,9 @@ public class uiRegisterController {
         //ObservableList<ActivityTableDataClass> listOfTableFormattedActivities = listOfActivities;
 
         //add the observablelist of activities to the table.
-        tableRegisteredActivities.setItems(activityTableData);
+        */
+        System.out.println();
+        tableAvailableActivities.setItems(activityTableData);
     }
 
     public void startRegisterUI() throws IOException {
@@ -156,25 +190,28 @@ public class uiRegisterController {
         //set this objects stage reference since this is where we come into the method.
         primaryStage = new Stage();
 
-        // primaryStage is taken from application class, it is the first stage the
-        // program will show.
-        // recall that 'stages' are singular instances of windows
+        //startWelcoemUI is the entrypoint for this controller. It will get the FXML file,
+        //set the class's uiWelcomeController var to the FXMLLoader's instance and then
+        //call tablePopulate to fill it.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("registerUI.fxml"));
+        Parent page = (Parent) loader.load();
 
-        // this is the first UI the program will open.
-        // FXMLLoader takes our fxml file. We use getClass().getResource() to properly
-        // get the file. I am not sure why this is,
-        // just that the docs specify it this way
-        // Parent page = (Parent) FXMLLoader.load(getClass().getResource("login.fxml"));
-        Parent page = (Parent) FXMLLoader.load(getClass().getResource("registerUI.fxml"));
+        //we need to get the instance of the controller we just made so we can populate its table
+        //recall we have to use the instance made by FXMLLoader
+        uiRegisterController = loader.getController();
+        //uiWelcomeController.columnName.PropertyValueFactoryProperty<ActivityTableDataClass, String>("columnName");
+        uiRegisterController.columnName.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnName"));
+        uiRegisterController.columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnPrice"));
+        uiRegisterController.tablePopulator(uiController.getID());
+        
 
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("BCRM");
+        primaryStage.setTitle("BCRM register");
 
         // finalize/show the window
-        //tablePopulator(uiController.getID());
-        primaryStage.showAndWait();
+        primaryStage.show();
     }
 
 }

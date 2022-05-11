@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 
 public class uiWelcomeController {
     uiWelcomeController uiWelcomeController;
-    static Stage primaryStage;
+    private Stage primaryStage = new Stage();
     ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
 
     //FXML scene builder code begins here
@@ -69,7 +69,7 @@ public class uiWelcomeController {
     
     @FXML
     void buttonReportClicked(ActionEvent event) throws IOException {
-        primaryStage.hide();
+        this.primaryStage.hide();
         reportUIcontroller reportUI = new reportUIcontroller();
         reportUI.startReportUI();
     }
@@ -98,7 +98,6 @@ public class uiWelcomeController {
     public void startWelcomeUI() throws IOException {
 
         //set this objects stage reference since this is where we come into the method.
-        primaryStage = new Stage();
 
         //startWelcoemUI is the entrypoint for this controller. It will get the FXML file,
         //set the class's uiWelcomeController var to the FXMLLoader's instance and then
@@ -117,10 +116,10 @@ public class uiWelcomeController {
 
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("BCRM welcome");
+        uiWelcomeController.primaryStage.setScene(scene);
+        uiWelcomeController.primaryStage.setTitle("BCRM welcome");
 
         // finalize/show the window
-        primaryStage.show();
+        uiWelcomeController.primaryStage.show();
     }
 }

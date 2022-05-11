@@ -9,8 +9,8 @@
    <children>
       <TableView id="tableAvailableActivities" fx:id="tableAvailableActivities" editable="true" layoutX="120.0" layoutY="121.0" onMouseClicked="#tableSelectionClick" prefHeight="200.0" prefWidth="402.0">
         <columns>
-          <TableColumn prefWidth="246.0" text="Activity Name" />
-          <TableColumn minWidth="1.0" prefWidth="155.0" text="Price" />
+          <TableColumn fx:id="columnName" prefWidth="246.0" text="Activity Name" />
+          <TableColumn fx:id="columnPrice" minWidth="1.0" prefWidth="155.0" text="Price" />
         </columns>
       </TableView>
       <Text fx:id="textWelcomeUser" layoutX="251.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome user!" />
