@@ -43,7 +43,6 @@ public class uiRegisterController {
     @FXML
     private Button buttonOpenRegisterUI;
 
-    //why isnt this a method????
     @FXML
     private TableView<ActivityTableDataClass> tableAvailableActivities;
     
@@ -77,29 +76,27 @@ public class uiRegisterController {
     }
 
     @FXML
-    void tableSelectionClick(ActionEvent event) {
+    void tableSelectionClick(MouseEvent event) {
 
     }
 
     @FXML
-    void buttonAddToOrder(ActionEvent event) {
-        newOrder.add(tableAvailableActivities.getSelectionModel().getSelectedItem());
-        System.out.print(newOrder);
-        //get each selection (when user presses a button) and add it to an activity list.
-        //this list will be passed to the databasecontroller wherever we finalize the order
+    void buttonAddToOrder(ActionEvent event) throws IOException {
+        //if the selection is NOT empty, add it to the order
+        if (tableAvailableActivities.getSelectionModel().getSelectedItem() != null){
+            newOrder.add(tableAvailableActivities.getSelectionModel().getSelectedItem());
+        }
+        else {
+            alertOrderEmptyUIcontroller alertUI = new alertOrderEmptyUIcontroller();
+            alertUI.startAlertOrderEmptyUI();
+        }
 
-        //CreateOrder(Date date,String status, int bronco_id, List<Activity> items)
-        /*
-        Calendar c = Calendar.getInstance();
-		Date date = c.getTime();
-        
-        DatabaseController.getInstance().CreateOrder(date, "COUNTER", uiController.getID(), newOrder);
-        */
+        //System.out.println(newOrder.get(0));
     }
 
     @FXML
     void buttonViewOrder(ActionEvent event) throws IOException {
-        if(newOrder == null){
+        if(newOrder.isEmpty()){
             alertOrderEmptyUIcontroller alertUI = new alertOrderEmptyUIcontroller();
             alertUI.startAlertOrderEmptyUI();
         }
@@ -113,33 +110,14 @@ public class uiRegisterController {
 
     //WARNING FOR YOUR EYES! HERE THERE BE A MESS OF IDEAS COMMENTED OUT!
     public void tablePopulator(int BroncoID){
-        //update the ObservableList at the top with the orders.
-
 
         
         listOfAllActivities = DatabaseController.getInstance().getAllActivity();
         List<Order> listOfCustomerOrders = DatabaseController.getInstance().getActiveOrders(BroncoID);
-        /*
-        for (Activity i : listOfAllActivities){
-            //int j = 0;
 
-            //super simple casting, since we extend object. The multiline code is a previous implementation left
-            //for legacy/bug fixing purposes.
-
-            //the idea here is since I extended the Activity object to ActivityTableDataClass I can then simply cast it upwards
-            //with no loss of data
-            //listOfActivities.set(j, (ActivityTableDataClass) listOfActivities.get(j));
-
-
-
-            //To do this we must create new ActivityTableDataClass objects and fill the ObservableList activityTableData with them.
-            ActivityTableDataClass newData = new ActivityTableDataClass(i.getName(), i.getPrice());
-            activityTableData.add(newData);
-
-            //j++;
-        }
-        //remove any activities that are already registered for.
-        */
+        //For each activity in the list of customer orders (IE all their active orders)
+        //make a new object in our observable list 'activityTableData'; this will be the final observable list
+        //we use to print to the table.
         for (Order a : listOfCustomerOrders){
             for (Activity b : a.getItems()){
                 for (Activity c : listOfAllActivities){
@@ -151,37 +129,7 @@ public class uiRegisterController {
 
             }
         }
-        
-        //REFACTOR AFTER EXTENDING ACTIVITY!!!
-        /*
-        for (Activity i : listOfActivities){
-            //int j = 0;
-
-            //super simple casting, since we extend object. The multiline code is a previous implementation left
-            //for legacy/bug fixing purposes.
-
-            //the idea here is since I extended the Activity object to ActivityTableDataClass I can then simply cast it upwards
-            //with no loss of data
-            //listOfActivities.set(j, (ActivityTableDataClass) listOfActivities.get(j));
-
-
-
-            //To do this we must create new ActivityTableDataClass objects and fill the ObservableList activityTableData with them.
-            ActivityTableDataClass newData = new ActivityTableDataClass(i.getName(), i.getPrice());
-            activityTableData.add(newData);
-
-            //j++;
-        }
-        //PREV IMPLEMENTATION: add all the activities to the ObservableList
-        //tableRegisteredActivities.setItems(activityTableData);
-
-        //Horrible attempt at casting a list of activities to an observable list of activity table data classes (down classing)
-        //it didnt work.
-        //ObservableList<ActivityTableDataClass> listOfTableFormattedActivities = listOfActivities;
-
-        //add the observablelist of activities to the table.
-        */
-        System.out.println();
+        //set the table
         tableAvailableActivities.setItems(activityTableData);
     }
 
@@ -190,8 +138,8 @@ public class uiRegisterController {
         //set this objects stage reference since this is where we come into the method.
         primaryStage = new Stage();
 
-        //startWelcoemUI is the entrypoint for this controller. It will get the FXML file,
-        //set the class's uiWelcomeController var to the FXMLLoader's instance and then
+        //startRegisterUI is the entrypoint for this controller. It will get the FXML file,
+        //set the class's uiRegisterController var to the FXMLLoader's instance and then
         //call tablePopulate to fill it.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("registerUI.fxml"));
         Parent page = (Parent) loader.load();
@@ -199,12 +147,11 @@ public class uiRegisterController {
         //we need to get the instance of the controller we just made so we can populate its table
         //recall we have to use the instance made by FXMLLoader
         uiRegisterController = loader.getController();
-        //uiWelcomeController.columnName.PropertyValueFactoryProperty<ActivityTableDataClass, String>("columnName");
+
         uiRegisterController.columnName.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnName"));
         uiRegisterController.columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnPrice"));
         uiRegisterController.tablePopulator(uiController.getID());
         
-
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
         primaryStage.setScene(scene);
