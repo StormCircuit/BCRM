@@ -70,8 +70,8 @@ public class uiWelcomeController {
     @FXML
     void buttonReportClicked(ActionEvent event) throws IOException {
         this.primaryStage.hide();
-        reportUIcontroller reportUI = new reportUIcontroller();
-        reportUI.startReportUI();
+        uiReceiptController receiptUI = new uiReceiptController();
+        receiptUI.startReceiptUI();
     }
 
     //FXML code ends here
