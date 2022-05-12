@@ -31,9 +31,6 @@ public class uiReceiptController {
     private TableColumn<ActivityTableDataClass, String> columnName;
 
     @FXML
-    private TableColumn<ActivityTableDataClass, String> columnActivity;
-
-    @FXML
     private Button buttonHome;
 
     @FXML
@@ -63,9 +60,9 @@ public class uiReceiptController {
 
         uiReceiptController.columnName.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnName"));
         uiReceiptController.columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnPrice"));
-        uiReceiptController.tablePopulator();
         
         uiReceiptController.newOrder = newOrderArg;
+        uiReceiptController.tablePopulator();
 
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
