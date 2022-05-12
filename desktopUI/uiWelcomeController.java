@@ -66,6 +66,13 @@ public class uiWelcomeController {
 
     }
 
+    @FXML
+    void buttonOpenPriceHistoryUI(ActionEvent event) throws IOException{
+        this.primaryStage.hide();
+        uiPriceHistoryController priceHistoryUI = new uiPriceHistoryController();
+        priceHistoryUI.startPriceHistoryUI();
+    }
+
     
     @FXML
     void buttonReportClicked(ActionEvent event) throws IOException {
