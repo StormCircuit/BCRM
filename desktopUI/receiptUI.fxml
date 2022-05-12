@@ -5,14 +5,12 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="receiptUIcontroller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktopUI.uiReceiptController">
    <children>
       <TableView fx:id="receiptTable" layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Activity" />
-          <TableColumn prefWidth="44.0" text="Price" />
-            <TableColumn prefWidth="75.0" text="Date" />
+          <TableColumn fx:id="columnName" prefWidth="105.0" text="Activity" />
+          <TableColumn fx:id="columnPrice" prefWidth="94.0" text="Price" />
         </columns>
       </TableView>
       <Text layoutX="275.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Receipt" />

@@ -32,7 +32,7 @@ import java.util.ResourceBundle;
 
 public class uiWelcomeController {
     uiWelcomeController uiWelcomeController;
-    private Stage primaryStage = new Stage();
+    Stage primaryStage = new Stage();
     ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
 
     //FXML scene builder code begins here

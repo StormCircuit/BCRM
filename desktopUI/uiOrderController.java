@@ -23,13 +23,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class uiOrderController {
-    Stage primaryStage;
+    Stage primaryStage = new Stage();
     ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
     ObservableList<ActivityTableDataClass> newOrder = FXCollections.observableArrayList();
     ObservableList<Activity> listOfRegisterableActivities = FXCollections.observableArrayList();
     List<Activity> listOfAllActivities = new ArrayList<Activity>();
     uiOrderController uiOrderController;
     uiRegisterController newRegisterUI;
+    uiReceiptController uiReceiptController = new uiReceiptController();
 
     @FXML
     private TableView<ActivityTableDataClass> tableOrder;
@@ -63,26 +64,22 @@ public class uiOrderController {
         //actually commit the order
         DatabaseController.getInstance().CreateOrder(currDate, "ONLINE-PENDING", uiController.getID(), newOrderList);
         //hide this window, make a new register ui.
-        uiOrderController.primaryStage.hide();
-        newRegisterUI.startRegisterUI();
+        this.primaryStage.hide();
+        uiReceiptController.startReceiptUI(newOrder);
     }
 
     @FXML
     void buttonCancelAction(ActionEvent event) throws IOException {
-        uiOrderController.primaryStage.hide();
+        this.primaryStage.hide();
         newRegisterUI.startRegisterUI();
     }
 
-    public void tablePopulator(int BroncoID){
+    void tablePopulator(int BroncoID){
         tableOrder.setItems(newOrder);
     }
 
     public void startOrderUI(ObservableList<ActivityTableDataClass> orderArray) throws IOException {
-
-
-
         //set this objects stage reference since this is where we come into the method.
-        primaryStage = new Stage();
 
         //startRegisterUI is the entrypoint for this controller. It will get the FXML file,
         //set the class's uiRegisterController var to the FXMLLoader's instance and then
@@ -103,11 +100,11 @@ public class uiOrderController {
         
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("BCRM order");
+        uiOrderController.primaryStage.setScene(scene);
+        uiOrderController.primaryStage.setTitle("BCRM order");
 
         // finalize/show the window
-        primaryStage.show();
+        uiOrderController.primaryStage.show();
     }
 
 }

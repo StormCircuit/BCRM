@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 public class uiRegisterController {
-    Stage primaryStage;
+    Stage primaryStage = new Stage();
     ObservableList<ActivityTableDataClass> activityTableData = FXCollections.observableArrayList();
     ObservableList<ActivityTableDataClass> newOrder = FXCollections.observableArrayList();
     ObservableList<Activity> listOfRegisterableActivities = FXCollections.observableArrayList();
@@ -64,7 +64,7 @@ public class uiRegisterController {
 
     @FXML
     void buttonOpenWelcomeUI(ActionEvent event) throws IOException {
-        primaryStage.hide();
+        this.primaryStage.hide();
         uiWelcomeController welcomeUI = new uiWelcomeController();
         welcomeUI.startWelcomeUI();
 
@@ -103,13 +103,13 @@ public class uiRegisterController {
         else{
             uiOrderController orderUI = new uiOrderController();
             orderUI.startOrderUI(newOrder);
-            uiRegisterController.primaryStage.hide();
+            this.primaryStage.hide();
         }
     }
 
     //FXML code ends here
 
-    //WARNING FOR YOUR EYES! HERE THERE BE A MESS OF IDEAS COMMENTED OUT!
+
     public void tablePopulator(int BroncoID){
 
         
@@ -137,9 +137,8 @@ public class uiRegisterController {
     public void startRegisterUI() throws IOException {
 
         //set this objects stage reference since this is where we come into the method.
-        primaryStage = new Stage();
 
-        //startRegisterUI is the entrypoint for this controller. It will get the FXML file,
+        //startWelcoemUI is the entrypoint for this controller. It will get the FXML file,
         //set the class's uiRegisterController var to the FXMLLoader's instance and then
         //call tablePopulate to fill it.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("registerUI.fxml"));
@@ -153,13 +152,14 @@ public class uiRegisterController {
         uiRegisterController.columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnPrice"));
         uiRegisterController.tablePopulator(uiController.getID());
         
+
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("BCRM register");
+        uiRegisterController.primaryStage.setScene(scene);
+        uiRegisterController.primaryStage.setTitle("BCRM register");
 
         // finalize/show the window
-        primaryStage.show();
+        uiRegisterController.primaryStage.show();
     }
 
 }

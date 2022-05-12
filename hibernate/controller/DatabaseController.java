@@ -208,5 +208,29 @@ public class DatabaseController {
 		
 	}
 
+	public double getTotalRevenue(int bronco_id) {
+
+        List<Order> orders = getActiveOrders(bronco_id);
+
+        double total = 0;
+
+        for(Order o : orders) {
+
+            total += o.getTotal_price();
+
+        }
+
+        return total;
+
+    }
+
+    public List<Customer> getAllCustomers(){
+        Session session = DatabaseSession.getInstance().getSession();
+
+        List<Customer> customers = session.createQuery("FROM Customer", Customer.class).getResultList();
+
+        return customers;
+    }
+
 }
 
