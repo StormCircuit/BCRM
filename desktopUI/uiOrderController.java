@@ -2,6 +2,7 @@ package desktopUI;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import hibernate.controller.DatabaseController;
@@ -28,6 +29,7 @@ public class uiOrderController {
     ObservableList<Activity> listOfRegisterableActivities = FXCollections.observableArrayList();
     List<Activity> listOfAllActivities = new ArrayList<Activity>();
     uiOrderController uiOrderController;
+    uiRegisterController newRegisterUI;
 
     @FXML
     private TableView<ActivityTableDataClass> tableOrder;
@@ -50,17 +52,25 @@ public class uiOrderController {
     }
 
     @FXML
-    void buttonCheckoutAction(ActionEvent event) {
+    void buttonCheckoutAction(ActionEvent event) throws IOException {
         //finalize the data in the db by sending the order
-
+        Date currDate = new Date();
+        //DatabaseController expects a list so we cast our ObservableList newOrder to a arrayListy newOrderList.
+        List<Activity> newOrderList = new ArrayList<Activity>();
+        for (ActivityTableDataClass i : newOrder){
+            newOrderList.add(i);
+        }
+        //actually commit the order
+        DatabaseController.getInstance().CreateOrder(currDate, "ONLINE-PENDING", uiController.getID(), newOrderList);
+        //hide this window, make a new register ui.
+        uiOrderController.primaryStage.hide();
+        newRegisterUI.startRegisterUI();
     }
 
     @FXML
     void buttonCancelAction(ActionEvent event) throws IOException {
-        primaryStage.hide();
-        uiRegisterController registerUI = new uiRegisterController();
-        registerUI.startRegisterUI();
-
+        uiOrderController.primaryStage.hide();
+        newRegisterUI.startRegisterUI();
     }
 
     public void tablePopulator(int BroncoID){
@@ -69,7 +79,7 @@ public class uiOrderController {
 
     public void startOrderUI(ObservableList<ActivityTableDataClass> orderArray) throws IOException {
 
-        
+
 
         //set this objects stage reference since this is where we come into the method.
         primaryStage = new Stage();

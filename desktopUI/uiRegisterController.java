@@ -103,6 +103,7 @@ public class uiRegisterController {
         else{
             uiOrderController orderUI = new uiOrderController();
             orderUI.startOrderUI(newOrder);
+            uiRegisterController.primaryStage.hide();
         }
     }
 
