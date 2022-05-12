@@ -101,8 +101,8 @@ public class uiRegisterController {
             alertUI.startAlertOrderEmptyUI();
         }
         else{
-            uiOrderController orderUI = new uiOrderController(newOrder);
-            orderUI.startOrderUI();
+            uiOrderController orderUI = new uiOrderController();
+            orderUI.startOrderUI(newOrder);
         }
     }
 

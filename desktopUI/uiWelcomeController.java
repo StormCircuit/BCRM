@@ -108,7 +108,7 @@ public class uiWelcomeController {
         //we need to get the instance of the controller we just made so we can populate its table
         //recall we have to use the instance made by FXMLLoader
         uiWelcomeController = loader.getController();
-        //uiWelcomeController.columnName.PropertyValueFactoryProperty<ActivityTableDataClass, String>("columnName");
+
         uiWelcomeController.columnName.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnName"));
         uiWelcomeController.columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnPrice"));
         uiWelcomeController.tablePopulator(uiController.getID());
