@@ -5,12 +5,12 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktopUI.reportUIcontroller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="desktopUI.uiReportController">
    <children>
       <TableView fx:id="reportTable" layoutX="143.0" layoutY="100.0" prefHeight="200.0" prefWidth="314.0">
         <columns>
-          <TableColumn prefWidth="154.0" text="Customer" />
-          <TableColumn prefWidth="159.0" text="Revenue" />
+          <TableColumn fx:id="columnName" prefWidth="154.0" text="Customer" />
+          <TableColumn fx:id="columnRevenue" prefWidth="159.0" text="Revenue" />
         </columns>
       </TableView>
       <Text layoutX="247.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Financial Report" />

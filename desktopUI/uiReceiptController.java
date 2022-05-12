@@ -1,10 +1,7 @@
 package desktopUI;
 
 import java.io.IOException;
-import java.util.List;
 
-import hibernate.controller.DatabaseController;
-import hibernate.entity.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -21,18 +17,21 @@ import javafx.stage.Stage;
 
 public class uiReceiptController {
     Stage primaryStage = new Stage();
-    ObservableList<CustomerTableDataClass> customers = FXCollections.observableArrayList();
+    ObservableList<ActivityTableDataClass> newOrder = FXCollections.observableArrayList();
     uiWelcomeController welcomeUI = new uiWelcomeController();
     uiReceiptController uiReceiptController;
 
     @FXML
-    private TableView<CustomerTableDataClass> receiptTable;
+    private TableView<ActivityTableDataClass> receiptTable;
 
     @FXML
-    private TableColumn<CustomerTableDataClass, String> columnPrice;
+    private TableColumn<ActivityTableDataClass, String> columnPrice;
 
     @FXML
-    private TableColumn<CustomerTableDataClass, String> columnName;
+    private TableColumn<ActivityTableDataClass, String> columnName;
+
+    @FXML
+    private TableColumn<ActivityTableDataClass, String> columnActivity;
 
     @FXML
     private Button buttonHome;
@@ -45,16 +44,10 @@ public class uiReceiptController {
     }
 
     void tablePopulator(){
-        List<Customer> listOfCustomers = DatabaseController.getInstance().getAllCustomers();
-        for (Customer var : listOfCustomers){
-            CustomerTableDataClass varTable = new CustomerTableDataClass(var.getName(), DatabaseController.getInstance().getTotalRevenue(var.getBronco_id()));
-            System.out.println(varTable.columnNameProperty().get());
-            customers.add(varTable);
-        }
-        this.receiptTable.setItems(customers);
+        this.receiptTable.setItems(newOrder);
     }
 
-    public void startReceiptUI() throws IOException {
+    public void startReceiptUI(ObservableList<ActivityTableDataClass> newOrderArg) throws IOException {
 
         //set this objects stage reference since this is where we come into the method.
 
@@ -68,15 +61,16 @@ public class uiReceiptController {
         //recall we have to use the instance made by FXMLLoader
         uiReceiptController = loader.getController();
 
-        uiReceiptController.columnName.setCellValueFactory(new PropertyValueFactory<CustomerTableDataClass, String>("columnName"));
-        uiReceiptController.columnPrice.setCellValueFactory(new PropertyValueFactory<CustomerTableDataClass, String>("columnRevenue"));
-        
+        uiReceiptController.columnName.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnName"));
+        uiReceiptController.columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnPrice"));
+        uiReceiptController.newOrder = newOrderArg;
         uiReceiptController.tablePopulator();
+        
 
         // setup scene, primaryStage is our first stage we open
         Scene scene = new Scene(page);
         uiReceiptController.primaryStage.setScene(scene);
-        uiReceiptController.primaryStage.setTitle("BCRM report");
+        uiReceiptController.primaryStage.setTitle("BCRM welcome");
 
         // finalize/show the window
         uiReceiptController.primaryStage.show();

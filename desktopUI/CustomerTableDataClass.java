@@ -1,7 +1,5 @@
 package desktopUI;
 
-import hibernate.controller.DatabaseController;
-import hibernate.entity.Activity;
 import hibernate.entity.Customer;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

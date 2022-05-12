@@ -1,9 +1,7 @@
 package desktopUI;
 import hibernate.controller.*;
-import hibernate.entity.Activity;
 
 import java.io.IOException;
-import java.util.List;
 
 // testing!
 public class uiController {
