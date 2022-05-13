@@ -8,25 +8,20 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class HistoricalPricesTableDataClass{
-    private final StringProperty columnName = new SimpleStringProperty();
-    private List<Price> historicalPriceList = new ArrayList<Price>();
+    private StringProperty price = new SimpleStringProperty();
+    private StringProperty date = new SimpleStringProperty();
 
-    public HistoricalPricesTableDataClass(String price, String dateChanged) {
-        columnName.set(String.valueOf(price));
-        columnDate.set(String.valueOf(dateChanged));
+    public HistoricalPricesTableDataClass(String priceArg, String dateArg){
+        this.price.set(priceArg);
+        this.date.set(dateArg);
     }
 
-    /*
-    public StringProperty ActivityName = String.valueOf(getName());
-    public StringProperty ActivityPrice = String.valueOf(getPrice());
-    */
-
-    public StringProperty columnNameProperty(){
-        return columnName;
+    public StringProperty columnPriceProperty(){
+        return price;
     }
 
     public StringProperty columnDateProperty(){
-        return columnDate;
+        return date;
     }
 
 }

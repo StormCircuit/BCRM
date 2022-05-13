@@ -20,7 +20,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Menu:" />
             <Button fx:id="buttonOpenRegisterUI" mnemonicParsing="false" onAction="#buttonOpenRegisterUI" prefHeight="31.0" prefWidth="175.0" text="Registration" />
             <Button fx:id="buttonReport" mnemonicParsing="false" onAction="#buttonReportClicked" prefHeight="31.0" prefWidth="117.0" text="Report" />
-            <Button fx:id="buttonHistoricalPrices" mnemonicParsing="false" prefHeight="31.0" prefWidth="141.0" text="Prices" />
+            <Button fx:id="buttonHistoricalPrices" mnemonicParsing="false" onAction="#buttonOpenPriceHistoryUI" prefHeight="31.0" prefWidth="141.0" text="Prices" />
          </children>
       </VBox>
    </children>

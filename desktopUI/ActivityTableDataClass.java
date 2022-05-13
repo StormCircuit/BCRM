@@ -7,11 +7,19 @@ import javafx.beans.property.StringProperty;
 public class ActivityTableDataClass extends Activity{
     private final StringProperty columnName = new SimpleStringProperty();
     private final StringProperty columnPrice = new SimpleStringProperty();
+    private int ID;
 
     public ActivityTableDataClass(String name, double price) {
         super(name, price);
         columnName.set(String.valueOf(getName()));
         columnPrice.set(String.valueOf(getPrice()));
+    }
+    
+    public ActivityTableDataClass(String name, double price, int idArg){
+        super(name, price);
+        columnName.set(String.valueOf(getName()));
+        columnPrice.set(String.valueOf(getPrice()));
+        setId(idArg);
     }
 
     /*
@@ -28,6 +36,11 @@ public class ActivityTableDataClass extends Activity{
         columnPrice.set(String.valueOf(getPrice()));
         return columnPrice;
     }
+
+    public Integer IDProperty(){
+        return ID;
+    }
+    
 
     /*
     public void setColumnName() {
