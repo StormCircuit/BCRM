@@ -85,4 +85,8 @@ public class Price {
 	
 	
 	
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9a8be6aaced39c0a26a22ca58b553e4eb636d0b8
