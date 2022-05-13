@@ -13,12 +13,13 @@
             <Button fx:id="buttonHome" mnemonicParsing="false" text="Home" />
          </children>
       </VBox>
-      <TableView layoutX="139.0" layoutY="114.0" prefHeight="200.0" prefWidth="322.0">
+      <TableView fx:id="priceHistoryTable" layoutX="139.0" layoutY="114.0" prefHeight="200.0" prefWidth="322.0">
         <columns>
           <TableColumn fx:id="columnPrice" prefWidth="122.0" text="Price" />
           <TableColumn fx:id="columnDate" prefWidth="199.0" text="Date Changed" />
         </columns>
       </TableView>
-      <ComboBox fx:id="menuSelectAcitvity" layoutX="225.0" layoutY="314.0" prefWidth="150.0" promptText="Select Activity" />
+      <ComboBox fx:id="menuSelectActivity" layoutX="139.0" layoutY="314.0" onAction="#menuSelectActivityClick" prefWidth="150.0" promptText="Select Activity" />
+      <Button fx:id="buttonUpdatePrice" layoutX="356.0" layoutY="314.0" mnemonicParsing="false" onAction="#buttonUpdatePriceClick" text="Update Price" />
    </children>
 </Pane>

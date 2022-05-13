@@ -1,7 +1,12 @@
 package desktopUI;
 
 import java.io.IOException;
+import java.util.List;
 
+import hibernate.controller.DatabaseController;
+import hibernate.entity.Activity;
+import hibernate.entity.Price;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,29 +16,52 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class uiPriceHistoryController {
     uiPriceHistoryController uiPriceHistoryController;
+    ObservableList<HistoricalPricesTableDataClass> historicalPricesTableData;
+    List<Activity> listOfAllActivities = DatabaseController.getInstance().getAllActivity();
     Stage primaryStage;
 
     @FXML
-    private TableView<?> priceHistoryTable;
+    private TableView<HistoricalPricesTableDataClass> priceHistoryTable;
 
     @FXML
-    private ComboBox<?> menuSelectAcitvity;
+    private ComboBox<Activity> menuSelectActivity;
 
     @FXML
     private Button buttonHome;
 
     @FXML
-    private TableColumn<?, ?> columnPrice;
+    private TableColumn<HistoricalPricesTableDataClass, String> columnPrice;
 
     @FXML
-    private TableColumn<?, ?> columnDate;
+    private TableColumn<HistoricalPricesTableDataClass, String> columnDate;
 
-    void tablePopulator(){
-        this.priceHistoryTable.setItems();
+    @FXML
+    private Button buttonUpdatePrice;
+
+    @FXML
+    void menuSelectActivityClick(MouseEvent event) {
+
+    }
+
+    @FXML
+    void buttonUpdatePriceClick(MouseEvent event) {
+
+    }
+
+    void scenePopulator(){
+        for (Activity var : listOfAllActivities){
+            HistoricalPricesTableDataClass varTable = new HistoricalPricesTableDataClass(price, dateChanged);
+            Price price = new Price();
+
+            //System.out.println(varTable.columnNameProperty().get());
+            customers.add(varTable);
+        }
+        this.priceHistoryTable.setItems(historicalPricesTableData);
     }
 
     public void startPriceHistoryUI() throws IOException {
@@ -52,7 +80,7 @@ public class uiPriceHistoryController {
 
         uiPriceHistoryController.columnPrice.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnName"));
         uiPriceHistoryController.columnDate.setCellValueFactory(new PropertyValueFactory<ActivityTableDataClass, String>("columnPrice"));
-        uiPriceHistoryController.tablePopulator();
+        uiPriceHistoryController.scenePopulator();
         
 
         // setup scene, primaryStage is our first stage we open

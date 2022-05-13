@@ -1,11 +1,15 @@
 package desktopUI;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import hibernate.entity.Price;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class HistoricalPricesTableDataClass{
     private final StringProperty columnName = new SimpleStringProperty();
-    private final StringProperty columnDate = new SimpleStringProperty();
+    private List<Price> historicalPriceList = new ArrayList<Price>();
 
     public HistoricalPricesTableDataClass(String price, String dateChanged) {
         columnName.set(String.valueOf(price));

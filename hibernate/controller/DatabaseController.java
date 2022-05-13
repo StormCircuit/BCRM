@@ -3,6 +3,7 @@ package hibernate.controller;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import org.hibernate.Transaction;
 import hibernate.entity.Activity;
 import hibernate.entity.Customer;
 import hibernate.entity.Order;
+import hibernate.entity.Price;
 import hibernate.entity.Professor;
 import hibernate.entity.Student;
 
@@ -29,7 +31,7 @@ public class DatabaseController {
 		
 	}
 	
-	public boolean CreateStudent(int b_id, String username, String password, String name, String dob, String phone, String address, String enter_date, String grad_date, String major, String minor ){
+	public boolean CreateStudent(int b_id, String name, String dob, String phone, String address, String enter_date, String grad_date, String major, String minor ){
 		
 		
 		Session session = DatabaseSession.getInstance().getSession();
@@ -39,7 +41,7 @@ public class DatabaseController {
 		
 		System.out.println("Creating Student");
 		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-		Customer newCustomer = new Customer(b_id, username, password, name, formatter.parse(dob), phone, address);
+		Customer newCustomer = new Customer(b_id, name, formatter.parse(dob), phone, address);
 		Student newStudent = new Student(newCustomer, formatter.parse(enter_date), formatter.parse(grad_date), major, minor);
 		
 		//session.beginTransaction();
@@ -56,7 +58,7 @@ public class DatabaseController {
 		return true;
 	}
 	
-	public boolean CreateProfessor(int b_id, String username, String password, String name, String dob, String phone, String address, String department, String office, String research) {
+	public boolean CreateProfessor(int b_id, String name, String dob, String phone, String address, String department, String office, String research) {
 		
 		Session session = DatabaseSession.getInstance().getSession();
 		
@@ -64,7 +66,7 @@ public class DatabaseController {
 		
 			System.out.println("Creating Professor");
 			SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-			Customer newCustomer = new Customer(b_id, username, password, name, formatter.parse(dob), phone, address);
+			Customer newCustomer = new Customer(b_id, name, formatter.parse(dob), phone, address);
 			Professor newProfessor = new Professor(newCustomer, department, office, research);
 			
 			//session.beginTransaction();
@@ -88,12 +90,22 @@ public class DatabaseController {
 		Session session = DatabaseSession.getInstance().getSession();
 		
 		try {
+			
+			if(getActivity(name) != null) {
+				System.out.println("Activity already exists");
+				return false;
+			}
 		
 			System.out.println("Creating Activity");
 			Activity newActivity = new Activity(name, price);
+			Calendar c = Calendar.getInstance();
+			Date date = c.getTime();
 			
+			Price newPrice = new Price(price, date, newActivity);
+			newActivity.addPrice(newPrice);
 			//session.beginTransaction();
 			session.save(newActivity);
+			session.save(newPrice);
 			System.out.println("Saving Activity: " + newActivity.toString());
 			session.getTransaction().commit();
 			
@@ -159,6 +171,12 @@ public class DatabaseController {
 		return true;
 	}
 	
+	public void CreateHistoricalPrice(double price, Date date) {
+		
+		
+		
+	}
+	
 	public boolean verifyLogIn(int bronco_id) {
 		
 		Session session = DatabaseSession.getInstance().getSession();
@@ -181,7 +199,14 @@ public class DatabaseController {
 		
 		List<Activity> items = session.createQuery("FROM Activity A WHERE A.name = :name", Activity.class).setParameter("name", name).getResultList();
 		
-		Activity activity = items.get(0); 
+		Activity activity;
+		
+		if(items.isEmpty()) {
+			System.out.println("Doesn't exist");
+			return null;
+		}else {
+			activity = items.get(0); 
+		}
 		
 		return activity;
 	}
@@ -207,30 +232,66 @@ public class DatabaseController {
 		return orders;
 		
 	}
-
+	
 	public double getTotalRevenue(int bronco_id) {
+		
+		List<Order> orders = getActiveOrders(bronco_id);
+		
+		double total = 0;
+		
+		for(Order o : orders) {
+			
+			total += o.getTotal_price();
+			
+		}
+		
+		return total;
+	
+	}
+	
+	public List<Customer> getAllCustomers(){
+		Session session = DatabaseSession.getInstance().getSession();
+		
+		List<Customer> customers = session.createQuery("FROM Customer", Customer.class).getResultList();
 
-        List<Order> orders = getActiveOrders(bronco_id);
+		return customers;
+	}
+	
+	public List<Price> getHistoricalPrice(String activity){
+		
+		Session session = DatabaseSession.getInstance().getSession();
+		
+		Activity a = getActivity(activity);
+		
+		List<Price> prices = session.createQuery("FROM historical_price p WHERE p.activity= :activity ", Price.class).setParameter("activity:", a).getResultList();
 
-        double total = 0;
-
-        for(Order o : orders) {
-
-            total += o.getTotal_price();
-
-        }
-
-        return total;
-
-    }
-
-    public List<Customer> getAllCustomers(){
-        Session session = DatabaseSession.getInstance().getSession();
-
-        List<Customer> customers = session.createQuery("FROM Customer", Customer.class).getResultList();
-
-        return customers;
-    }
-
+		return prices;
+		
+		
+	}
+	
+	public void updatePrice(String name, double p) {
+		
+		Session session = DatabaseSession.getInstance().getSession();
+		
+		
+		Activity a = getActivity(name);
+		Calendar c = Calendar.getInstance();
+		Date date = c.getTime();
+		
+		List<Price> prices = a.getPrices();
+		
+		Price price = new Price(p, date, a);
+		
+		prices.add(price);
+		
+		a.setPrices(prices);
+		a.setPrice(p);
+		
+		session.update(a);
+		session.save(price);
+		session.getTransaction().commit();
+			
+		
+	}
 }
-

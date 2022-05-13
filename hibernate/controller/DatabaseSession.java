@@ -8,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 import hibernate.entity.Activity;
 import hibernate.entity.Customer;
 import hibernate.entity.Order;
+import hibernate.entity.Price;
 import hibernate.entity.Professor;
 import hibernate.entity.Student;
 
@@ -25,6 +26,7 @@ public class DatabaseSession {
 				.addAnnotatedClass(Activity.class)
 				.addAnnotatedClass(Order.class)
 				.addAnnotatedClass(Professor.class)
+				.addAnnotatedClass(Price.class)
 				.buildSessionFactory();
 		session = factory.openSession();
 		transaction = session.beginTransaction();
