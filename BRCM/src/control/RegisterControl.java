@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -50,11 +49,43 @@ public class RegisterControl extends HttpServlet {
 		
 		String[] values = request.getParameterValues("activities");
 		if (values != null) {
-			out.println("<h2>Thank you for your purchase!</h2>");
+			out.println("<h2>Billy Bronco - Thank you for your purchase!</h2>");
+			out.println("<h3>Confirmation sent to bbronco@cpp.edu</h3>");
 			out.println("<h3>Your selected activities:</h3>");
+			
+			out.println("<style>\n"
+					+ ".center{\n"
+					+ "  margin: 0;\n"
+					+ "  position: absolute;\n"
+					+ "  top: 30%;\n"
+					+ "  left: 0.5%;\n"
+					+ "  -ms-transform: translate(0%, 0%);\n"
+					+ "  transform: translate(0%, 0%);\n"
+					+ "}\n"
+					+ ".column {\n"
+					+ "  float: left;\n"
+					+ "  width: 15%;\n"
+					+ "}"
+					+ "</style>");
+			
+			out.println("<div class=\"column\">");
 			for(int i=0; i < values.length; i++) {
-				out.println("<li>" + values[i] +"</li>");
+				 out.println("&emsp;&emsp;" + values[i] + "<br>");
 			}
+			out.println("</div>");
+			
+			out.println("<div class=\"column\">");
+			for(int i=0; i < values.length; i++) {
+				 out.println("$9.99<br>");
+			}
+			out.println("</div>");
+			
+			double subtotal = 9.99 * values.length;
+			double total = subtotal - (subtotal * 0.2);
+			
+			out.println("<div class=\"center\">");
+			out.printf("<h3>Total: &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; $%.2f </h3>", total);
+			out.println("</div>");
 						
 			DatabaseController db = new DatabaseController();
 			
@@ -77,6 +108,8 @@ public class RegisterControl extends HttpServlet {
 			List<Activity> items = order.getItems();
 			db.CreateOrder(date, "online-pending", 123456789, items);
 		}
+		
+		out.print("</body></html>");
 		
 		out.close();
 				
