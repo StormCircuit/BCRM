@@ -264,8 +264,6 @@ public class DatabaseController {
 		Activity a = getActivity(activity);
 		
 		List<Price> prices = session.createQuery("FROM historical_price p WHERE p.activity= :activity ", Price.class).setParameter("activity:", a).getResultList();
-<<<<<<< HEAD
-=======
 
 		return prices;
 		
@@ -293,39 +291,6 @@ public class DatabaseController {
 		session.update(a);
 		session.save(price);
 		session.getTransaction().commit();
-			
-		
-	}
-}
->>>>>>> 9a8be6aaced39c0a26a22ca58b553e4eb636d0b8
-
-		return prices;
-		
-		
-	}
-	
-	public void updatePrice(String name, double p) {
-		
-		Session session = DatabaseSession.getInstance().getSession();
-		
-		
-		Activity a = getActivity(name);
-		Calendar c = Calendar.getInstance();
-		Date date = c.getTime();
-		
-		List<Price> prices = a.getPrices();
-		
-		Price price = new Price(p, date, a);
-		
-		prices.add(price);
-		
-		a.setPrices(prices);
-		a.setPrice(p);
-		
-		session.update(a);
-		session.save(price);
-		session.getTransaction().commit();
-			
 		
 	}
 }

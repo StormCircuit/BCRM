@@ -30,6 +30,7 @@ public class uiPriceHistoryController {
     Activity currSelectedActivity = listOfAllActivities.get(0);
     Stage primaryStage = new Stage();
 
+
     @FXML
     private TableView<HistoricalPricesTableDataClass> priceHistoryTable;
 
@@ -47,6 +48,14 @@ public class uiPriceHistoryController {
 
     @FXML
     private Button buttonUpdatePrice;
+
+    @FXML
+    void buttonHomeClicked(ActionEvent event) throws IOException {
+        this.primaryStage.hide();
+        uiWelcomeController welcomeUI = new uiWelcomeController();
+        welcomeUI.startWelcomeUI();
+
+    }
 
     @FXML
     void menuSelectActivityClick(ActionEvent event) {
