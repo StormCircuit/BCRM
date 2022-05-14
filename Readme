@@ -1,10 +1,8 @@
 Hello and welcome to our project! This is a project for our Soft Eng class to produce a 
-system for our campus's rec center. The idea was to make a system that can let customers register
-and browse their activities!
+system for our campus's rec center. The idea was to make a system that can let customers register and browse their activities!
 
 Java version:
-This program was compiled on JDK 8 u202 (jdk1.8_202). We make no guarantees on other versions and have seen unexpected
-behavior in our testing on other versions!
+This program was compiled on JDK 8 u202 (jdk1.8_202). We make no guarantees on other versions and have seen unexpected behavior in our testing on other versions!
 
 How to run:
 To run the program, you will need a database setup on your machine. Install postGRESQL 14.2.2 and make a BCRM database.
