@@ -5,8 +5,7 @@ Java version:
 This program was compiled on JDK 8 u202 (jdk1.8_202). We make no guarantees on other versions and have seen unexpected behavior in our testing on other versions!
 
 How to run:
-To run the program, you will need a database setup on your machine. Install postGRESQL 14.2.2 and make a 
-BCRM database.
+To run the program, you will need a database setup on your machine. Install postGRESQL 14.2.2 and make a BCRM database.
 Then, simply restore the database with the db.sql file included in the "sql scripts" folder.
 
 Then, you can either launch the program with the included batch file or navigate here with your choice of 
