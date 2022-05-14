@@ -9,7 +9,7 @@ seen unexpected behavior in our testing on other versions!
 How to run:
 To run the program, you will need a database setup on your machine. Install postGRESQL 14.2.2 and make a 
 BCRM database.
-Then, simply restore the database with the db.sql file included here.
+Then, simply restore the database with the db.sql file included in the "sql scripts" folder.
 
 Then, you can either launch the program with the included batch file or navigate here with your choice of 
 CLI and run "BCRM.jar" as a jar file (java -jar BCRM.jar)
