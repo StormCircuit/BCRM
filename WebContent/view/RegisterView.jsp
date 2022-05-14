@@ -27,7 +27,7 @@ p{
 }
 .column {
   float: left;
-  width: 33.33%;
+  width: 16%;
 }
 
 </style>
@@ -44,12 +44,21 @@ p{
 <form action = "confirmation" method="post">
 	
 	<div class="column">
-	<input id="1" type="checkbox" name="activities" value="Water Lining">Water Lining<br>
+	<input type="checkbox" name="activities" value="Water Lining">Water Lining<br>
 	<input type="checkbox" name="activities" value="Key Log Rolling">Key Log Rolling<br>
 	<input type="checkbox" name="activities" value="Open Water Polo">Open Water Polo<br>
 	<input type="checkbox" name="activities" value="Water Basketball">Water Basketball<br>
 	<input type="checkbox" name="activities" value="Water Volleyball">Water Volleyball<br>
 	<input type="checkbox" name="activities" value="FitFloat Relax Time">FitFloat Relax Time<br>
+	</div>
+	
+	<div class="column" style="line-height:127%">
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
 	</div>
 	
 	<div class="column">
@@ -69,6 +78,23 @@ p{
 	<input type="checkbox" name="activities" value="Boxing">Boxing<br>
 	</div>
 	
+	<div class="column" style="line-height:127%">
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	</div>
+	
 	<div class="column">
 	<input type="checkbox" name="activities" value="TRX">TRX<br>
 	<input type="checkbox" name="activities" value="Barre">Barre<br>
@@ -84,6 +110,23 @@ p{
 	<input type="checkbox" name="activities" value="Bronco Smash">Bronco Smash<br>
 	<input type="checkbox" name="activities" value="Personal Training">Personal Training<br>
 	<input type="checkbox" name="activities" value="Buddy Training">Buddy Training<br>
+	</div>
+	
+	<div class="column" style="line-height:127%">
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
+	$9.99<br>
 	</div>
 	
 	<div class ="center">
